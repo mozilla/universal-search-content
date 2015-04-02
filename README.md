@@ -11,8 +11,16 @@ the iframe that we put inside the autocomplete dropdown
 ## how to use with your custom gecko
 
 1. make sure the server is running with `harp server`
-2. grab the `hack-and-slash` branch of gecko-dev and replace [this line](https://github.com/the-super-friends/gecko-dev/blob/hack-and-slash/toolkit/content/widgets/autocomplete.xml#L1474) with the harp server url (http://localhost:9000/ by default)
-3. build gecko-dev and bask in our collective glory
+2. build gecko-dev following [the instructions]()
+3. when the custom nightly opens up, add prefs:
+  - surf to `about:config`
+  - create a new pref (right-click in the main pref area, then choose New > String)
+  - name it `services.universalSearch.frameURL`
+  - set its value to the complete path to the iframe URL, for example, `http://localhost/iframe.html`
+  - create another new String pref
+  - name it `services.universalSearch.baseURL`
+  - set its value to the scheme and domain part of the iframe URL, for example, `http://localhost`
+4. bask in our collective glory
 
 ## documenting the postmessage API with the autocomplete code
 
