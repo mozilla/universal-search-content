@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Universal Search</title>
+  <link rel="stylesheet" href="/styles/vendor/normalize.css">
+  <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+  <div id="top-hits">
+    <h2>Top Hits</h2>
+    <ol id="top-hits"></ol>
+  </div>
+  <div id="search-suggestions"></div>
+  <div id="awesomebar-results"></div>
+
+  <script id="search-suggestions-template" type="text/html">
+    <h2>Suggestions</h2>
+    <ol>
+      <% terms.forEach(function (term) { %>
+        <li><%= term %></li>
+      <% }); %>
+    </ol>
+  </script>
+  <script id="awesomebar-results-template" type="text/html">
+    <h2>Results</h2>
+    <ol>
+      <% results.forEach(function (result) { %>
+        <li><%= result.title %> <%= result.url %></li>
+      <% }); %>
+    </ol>
+  </script>
+
+  <script src="/scripts/vendor/jquery.min.js"></script>
+  <script src="/scripts/vendor/lodash.min.js"></script>
+  <script src="/scripts/vendor/backbone.min.js"></script>
+  <script src="/scripts/main.js"></script>
+</body>
+</html>
