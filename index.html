@@ -6,26 +6,55 @@
   <link rel="stylesheet" href="/styles/main.css">
 </head>
 <body>
-  <div id="top-hits">
-    <h2>Top Hits</h2>
-    <ol id="top-hits"></ol>
+  <div id="top-hits" class="result-region">
+    <ol>
+      <li class="result">
+          <span class="icon null"></span>
+          <span class="icon search-result"></span>
+          <span class="result-copy">
+            Let's pretend there's a top hit
+          </span>
+        </li>
+    </ol>
   </div>
-  <div id="search-suggestions"></div>
-  <div id="awesomebar-results"></div>
+  <div id="search-suggestions" class="result-region"></div>
+  <div id="awesomebar-results" class="result-region"></div>
 
   <script id="search-suggestions-template" type="text/html">
-    <h2>Suggestions</h2>
+    <h2 class="result-group-title">Search Suggestions</h2>
     <ol>
       <% terms.forEach(function (term) { %>
-        <li><%= term %></li>
+        <li class="result">
+          <span class="icon null"></span>
+          <span class="icon search-result"></span>
+          <span class="result-copy">
+            <%= term %>
+          </span>
+        </li>
       <% }); %>
     </ol>
   </script>
+
   <script id="awesomebar-results-template" type="text/html">
-    <h2>Results</h2>
+    <h2 class="result-group-title">Bookmarks &amp; History</h2>
     <ol>
-      <% results.forEach(function (result) { %>
-        <li><%= result.title %> <%= result.url %></li>
+      <% results.forEach(function (result, index) { %>
+        <% if (index === 0) { %>
+          <li class="result active"> 
+        <% } else { %>
+          <li class="result"> 
+        <% } %>
+            <span class="icon bookmark"></span>
+            <span class="icon favicon"></span>
+            <span class="result-copy">
+              <% if(result.title) { %>
+              <%= result.title %> &mdash; 
+              <% } %>
+              <span class="url">
+                <%= result.url %>
+              </span>
+            </span>
+          </li>
       <% }); %>
     </ol>
   </script>
