@@ -1,3 +1,91 @@
-body {
-  font-family: sans-serif;
+$title-grey: #999999;
+$white: #ffffff;
+$url-blue: #0394dd; 
+
+
+html {
+  box-sizing: border-box;
 }
+*, *:before, *:after {
+  box-sizing: inherit;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+body {
+  font-family: message-box, sans-serif;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+}
+
+#top-hits {
+  margin-top: 14px;
+}
+
+.result-region {
+  margin: 0 6px;
+  max-width: 100%;
+
+  .result-group-title {
+    color: $title-grey;
+    padding: 0 12px;
+  }
+
+  ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .result {
+    align-items: center;
+    border-radius: 2px;
+    display: flex;
+    padding: 5px 14px;
+    transition: background 75ms;
+  }
+
+  .icon {
+    display: block;
+    flex: 0 0 16px;
+    height: 16px;
+    margin-right: 6px;
+  }
+
+  .search-result,
+  .bookmark,
+  .favicon {
+    //these can be ditched for real icons
+    border: 2px solid #ccc;
+    border-radius: 20%;
+  }
+
+  .result-copy {
+    display: block;
+    flex: 1;
+    height: 14px;
+    overflow: hidden;
+    position: relative;
+    text-overflow: ellipsis;
+    top: 1px;
+    white-space: nowrap;
+  }
+
+  .result-url  {
+    color: $url-blue;
+  }
+
+  .active {
+    background: $url-blue;
+
+    .result-copy {
+      color: $white;
+    }
+
+    .result-url {
+      color: $white;
+    }
+  }
+}
+
