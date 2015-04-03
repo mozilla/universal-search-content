@@ -40,15 +40,15 @@
     <ol>
       <% results.forEach(function (result, index) { %>
         <% if (index === 0) { %>
-          <li class="result active"> 
+          <li class="result active">
         <% } else { %>
-          <li class="result"> 
+          <li class="result">
         <% } %>
             <span class="icon bookmark"></span>
-            <span class="icon favicon"></span>
+            <img class="icon favicon" src="http://grabicon.com/icon?domain=<%= encodeURIComponent(result.url) %>&size=32" height="16" width="16">
             <span class="result-copy">
               <% if(result.title) { %>
-              <%= result.title %> &mdash; 
+              <%= result.title %> &mdash;
               <% } %>
               <span class="url">
                 <%= result.url %>

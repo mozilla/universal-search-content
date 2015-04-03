@@ -1,6 +1,6 @@
 $title-grey: #999999;
 $white: #ffffff;
-$url-blue: #0394dd; 
+$url-blue: #0394dd;
 
 
 html {
@@ -54,8 +54,7 @@ body {
   }
 
   .search-result,
-  .bookmark,
-  .favicon {
+  .bookmark {
     //these can be ditched for real icons
     border: 2px solid #ccc;
     border-radius: 20%;
