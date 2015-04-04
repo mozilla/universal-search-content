@@ -1,42 +1,38 @@
+var TopHitsView = Backbone.View.extend({
+  template: _.template($('#top-hits-template').html()),
+
+  initialize: function () {
+    this.hits = topHitsAdapter.hits;
+
+    this.listenTo(this.hits, 'reset', this.render);
+  },
+
+  render: function () {
+    this.$el.html(this.template({ hits: this.hits }));
+  }
+});
+
 var SearchSuggestionsView = Backbone.View.extend({
   template: _.template($('#search-suggestions-template').html()),
 
   initialize: function () {
-    this.terms = [];
+    this.remoteSuggestions = searchSuggestionsAdapter.remoteSuggestions;
 
-    window.addEventListener('WebChannelMessageToContent', this.messageReceived.bind(this));
-  },
-
-  messageReceived: function (e) {
-    var message = e.detail.message;
-
-    if (message.type == 'suggested-search-results' && message.data && message.data.results) {
-      this.terms = message.data.results.remote;
-      this.render();
-    }
+    this.listenTo(this.remoteSuggestions, 'reset', this.render);
   },
 
   render: function () {
-    this.$el.html(this.template({ terms: this.terms }));
+    this.$el.html(this.template({ remoteSuggestions: this.remoteSuggestions }));
   }
 });
 
-var AwesomebarResultsView = Backbone.View.extend({
+var AutocompleteSearchResultsView = Backbone.View.extend({
   template: _.template($('#awesomebar-results-template').html()),
 
   initialize: function () {
-    this.results = [];
+    this.results = autocompleteSearchResultsAdapter.results;
 
-    window.addEventListener('WebChannelMessageToContent', this.messageReceived.bind(this));
-  },
-
-  messageReceived: function (e) {
-    var message = e.detail.message;
-
-    if (message.type == 'autocomplete-search-results' && message.data) {
-      this.results = message.data;
-      this.render();
-    }
+    this.listenTo(this.results, 'reset', this.render);
   },
 
   render: function () {
@@ -45,6 +41,7 @@ var AwesomebarResultsView = Backbone.View.extend({
 });
 
 
-// Setup views
+// Initialize views
+var topHitsView = new TopHitsView({ el: $('#top-hits')});
 var searchSuggestionsView = new SearchSuggestionsView({ el: $('#search-suggestions')});
-var awesomebarResultsView = new AwesomebarResultsView({ el: $('#awesomebar-results')});
+var autocompleteSearchResultsView = new AutocompleteSearchResultsView({ el: $('#awesomebar-results')});
