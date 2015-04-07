@@ -1,6 +1,6 @@
 $title-grey: #999999;
 $white: #ffffff;
-$url-blue: #0095e0;
+$url-blue: #0394dd;
 
 html {
   box-sizing: border-box;
@@ -9,6 +9,7 @@ html {
   box-sizing: inherit;
   font-size: 14px;
   font-weight: normal;
+  user-select: none
 }
 
 body {
@@ -40,9 +41,9 @@ body {
   .result {
     align-items: center;
     border-radius: 2px;
+    cursor: pointer;
     display: flex;
     padding: 5px 14px;
-    //transition: background 75ms;
 
     &:hover {
       background: $url-blue;
@@ -53,6 +54,16 @@ body {
 
       .result-url {
         color: $white;
+      }
+
+      .search-result {
+        background: url(/images/suggestion-active@2x.png) no-repeat;
+        background-size: 16px 16px;
+      }
+
+      .bookmark {
+        background: url(/images/bookmark-active@2x.png) no-repeat;
+        background-size: 16px 16px;
       }
     }
   }
