@@ -65,7 +65,7 @@ $(document).click(function(evt) {
       message: {
         type: 'autocomplete-url-clicked',
         data: {
-          url: url,
+          result: url,
           // distinguish between the type of result in an ultraviolent way
           // NOTE: this assumes the top hit is always a URL. we'll fix the logic later
           resultType: $(evt.target).closest('#search-suggestions').length ? 'suggestion' : 'url'
