@@ -63,7 +63,7 @@ $(document).click(function(evt) {
     detail: {
       id: 'ohai',
       message: {
-        type: 'url-selected',
+        type: 'autocomplete-url-clicked',
         data: {
           url: url
         }
