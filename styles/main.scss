@@ -2,6 +2,8 @@ $title-grey: #999999;
 $white: #ffffff;
 $url-blue: #0394dd;
 
+$icon-unit: 16px;
+
 html {
   box-sizing: border-box;
 }
@@ -57,32 +59,34 @@ body {
       }
 
       .search-result {
-        background: url(/images/suggestion-active@2x.png) no-repeat;
-        background-size: 16px 16px;
+        background-position: 0 -1 * $icon-unit;
       }
 
       .bookmark {
-        background: url(/images/bookmark-active@2x.png) no-repeat;
-        background-size: 16px 16px;
+        background-position: -1 * $icon-unit  -1 * $icon-unit;
       }
     }
   }
 
   .icon {
     display: block;
-    flex: 0 0 16px;
-    height: 16px;
+    flex: 0 0 $icon-unit;
+    height: $icon-unit;
     margin-right: 6px;
   }
 
+  .search-result,
+  .bookmark {
+    background: url(/images/search-sprite@2x.png) no-repeat;
+    background-size: 3 * $icon-unit 2 * $icon-unit;
+  }
+
   .search-result {
-    background: url(/images/suggestion@2x.png) no-repeat;
-    background-size: 16px 16px;
+    background-position: 0 0;
   }
 
   .bookmark {
-    background: url(/images/bookmark@2x.png) no-repeat;
-    background-size: 16px 16px;
+    background-position: -$icon-unit 0;
   }
 
   .result-copy {
