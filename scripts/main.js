@@ -9,6 +9,8 @@ var TopHitsView = Backbone.View.extend({
 
   render: function () {
     this.$el.html(this.template({ hits: this.hits }));
+
+    return this;
   }
 });
 
@@ -23,11 +25,13 @@ var SearchSuggestionsView = Backbone.View.extend({
 
   render: function () {
     this.$el.html(this.template({ remoteSuggestions: this.remoteSuggestions }));
+
+    return this;
   }
 });
 
 var AutocompleteSearchResultsView = Backbone.View.extend({
-  template: _.template($('#awesomebar-results-template').html()),
+  template: _.template($('#autocomplete-results-template').html()),
 
   initialize: function () {
     this.results = autocompleteSearchResultsAdapter.results;
@@ -37,6 +41,8 @@ var AutocompleteSearchResultsView = Backbone.View.extend({
 
   render: function () {
     this.$el.html(this.template({ results: this.results }));
+
+    return this;
   }
 });
 
@@ -44,4 +50,4 @@ var AutocompleteSearchResultsView = Backbone.View.extend({
 // Initialize views
 var topHitsView = new TopHitsView({ el: $('#top-hits')});
 var searchSuggestionsView = new SearchSuggestionsView({ el: $('#search-suggestions')});
-var autocompleteSearchResultsView = new AutocompleteSearchResultsView({ el: $('#awesomebar-results')});
+var autocompleteSearchResultsView = new AutocompleteSearchResultsView({ el: $('#autocomplete-results')});

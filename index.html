@@ -13,14 +13,14 @@
   <script id="top-hits-template" type="text/html">
     <ol>
       <% hits.forEach(function (hit) { %>
-        <li class="result active">
-          <span class="icon bookmark"></span>
+        <li class="result">
+          <span class="icon <%= hit.get('type') %>"></span>
           <img class="icon favicon" src="http://grabicon.com/icon?domain=<%= encodeURIComponent(hit.get('url')) %>&size=32">
           <span class="result-copy">
             <% if (hit.get('title')) { %>
               <%= hit.get('title') %> &mdash;
             <% } %>
-            <span class="url">
+            <span class="result-url">
               <%= hit.get('url') %>
             </span>
           </span>
@@ -49,13 +49,13 @@
     <ol>
       <% results.forEach(function (result, index) { %>
         <li class="result">
-          <span class="icon bookmark"></span>
+          <span class="icon <%= result.get('type') %>"></span>
           <img class="icon favicon" src="http://grabicon.com/icon?domain=<%= encodeURIComponent(result.get('url')) %>&size=32">
           <span class="result-copy">
             <% if (result.get('title')) { %>
               <%= result.get('title') %> &mdash;
             <% } %>
-            <span class="url">
+            <span class="result-url">
               <%= result.get('url') %>
             </span>
           </span>

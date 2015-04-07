@@ -1,7 +1,6 @@
 $title-grey: #999999;
 $white: #ffffff;
-$url-blue: #0394dd;
-
+$url-blue: #0095e0;
 
 html {
   box-sizing: border-box;
@@ -43,7 +42,19 @@ body {
     border-radius: 2px;
     display: flex;
     padding: 5px 14px;
-    transition: background 75ms;
+    //transition: background 75ms;
+
+    &:hover {
+      background: $url-blue;
+
+      .result-copy {
+        color: $white;
+      }
+
+      .result-url {
+        color: $white;
+      }
+    }
   }
 
   .icon {
@@ -53,11 +64,14 @@ body {
     margin-right: 6px;
   }
 
-  .search-result,
+  .search-result {
+    background: url(/images/suggestion@2x.png) no-repeat;
+    background-size: 16px 16px;
+  }
+
   .bookmark {
-    //these can be ditched for real icons
-    border: 2px solid #ccc;
-    border-radius: 20%;
+    background: url(/images/bookmark@2x.png) no-repeat;
+    background-size: 16px 16px;
   }
 
   .result-copy {
@@ -73,18 +87,6 @@ body {
 
   .result-url  {
     color: $url-blue;
-  }
-
-  .active {
-    background: $url-blue;
-
-    .result-copy {
-      color: $white;
-    }
-
-    .result-url {
-      color: $white;
-    }
   }
 }
 
