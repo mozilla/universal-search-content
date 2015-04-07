@@ -51,3 +51,23 @@ var AutocompleteSearchResultsView = Backbone.View.extend({
 var topHitsView = new TopHitsView({ el: $('#top-hits')});
 var searchSuggestionsView = new SearchSuggestionsView({ el: $('#search-suggestions')});
 var autocompleteSearchResultsView = new AutocompleteSearchResultsView({ el: $('#autocomplete-results')});
+
+$(document).click(function(evt) {
+  console.log('caught a click');
+  evt.preventDefault();
+
+  // if the target is a result, or has an ancestor which is a .result,
+  // grab the result's navigable bits and send them to the urlbar
+  var url = $(evt.target).closest('.result').find('.url,.term').text().trim();
+  window.dispatchEvent(new window.CustomEvent("WebChannelMessageToChrome", {
+    detail: {
+      id: 'ohai',
+      message: {
+        type: 'url-selected',
+        data: {
+          url: url
+        }
+      }
+    }
+  }));
+});
