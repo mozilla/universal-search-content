@@ -58,7 +58,7 @@ $(document).click(function(evt) {
 
   // if the target is a result, or has an ancestor which is a .result,
   // grab the result's navigable bits and send them to the urlbar
-  var url = $(evt.target).closest('.result').find('.url,.term').text().trim();
+  var url = $(evt.target).closest('.result').find('.result-url,.term').text().trim();
   window.dispatchEvent(new window.CustomEvent("WebChannelMessageToChrome", {
     detail: {
       id: 'ohai',
