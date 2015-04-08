@@ -47,7 +47,7 @@ body {
     display: flex;
     padding: 5px 14px;
 
-    &:hover {
+    &:hover, &.selected {
       background: $url-blue;
 
       .result-copy {
@@ -104,4 +104,3 @@ body {
     color: $url-blue;
   }
 }
-
