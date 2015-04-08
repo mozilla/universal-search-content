@@ -16,10 +16,10 @@ the iframe that we put inside the autocomplete dropdown
   - surf to `about:config`
   - create a new pref (right-click in the main pref area, then choose New > String)
   - name it `services.universalSearch.frameURL`
-  - set its value to the complete path to the iframe URL, for example, `http://localhost/iframe.html`
+  - set its value to the complete path to the iframe URL, for example, `http://localhost:9000/index.html`
   - create another new String pref
   - name it `services.universalSearch.baseURL`
-  - set its value to the scheme and domain part of the iframe URL, for example, `http://localhost`
+  - set its value to the scheme and domain part of the iframe URL, for example, `http://localhost:9000`
 4. bask in our collective glory
 
 ## documenting the postmessage API with the autocomplete code
