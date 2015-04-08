@@ -15,7 +15,7 @@
       <% hits.forEach(function (hit) { %>
         <li class="result">
           <span class="icon <%= hit.get('type') %>"></span>
-          <img class="icon favicon" src="http://grabicon.com/icon?domain=<%= encodeURIComponent(hit.get('url')) %>&size=32">
+          <img class="icon favicon" src="https://ucygetfavicon.appspot.com/<%= encodeURIComponent(hit.get('url')) %>?defaulticon=1pxgif">
           <span class="result-copy">
             <% if (hit.get('title')) { %>
               <%= hit.get('title') %> &mdash;
@@ -53,7 +53,7 @@
       <% results.forEach(function (result, index) { %>
         <li class="result">
           <span class="icon <%= result.get('type') %>"></span>
-          <img class="icon favicon" src="http://grabicon.com/icon?domain=<%= encodeURIComponent(result.get('url')) %>&size=32">
+          <img class="icon favicon" src="https://ucygetfavicon.appspot.com/<%= encodeURIComponent(result.get('url')) %>?defaulticon=1pxgif">
           <span class="result-copy">
             <% if (result.get('title')) { %>
               <%= result.get('title') %> &mdash;
