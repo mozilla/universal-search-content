@@ -30,6 +30,7 @@
   </script>
 
   <script id="search-suggestions-template" type="text/html">
+  <% if (remoteSuggestions.length) { %>
     <h2 class="result-group-title">Search Suggestions</h2>
     <ol>
       <% remoteSuggestions.forEach(function (suggestion) { %>
@@ -42,9 +43,11 @@
         </li>
       <% }); %>
     </ol>
+  <% } %>
   </script>
 
   <script id="autocomplete-results-template" type="text/html">
+  <% if (results.length) { %>
     <h2 class="result-group-title">Bookmarks &amp; History</h2>
     <ol>
       <% results.forEach(function (result, index) { %>
@@ -62,6 +65,7 @@
         </li>
       <% }); %>
     </ol>
+  <% } %>
   </script>
 
   <script src="/scripts/vendor/jquery.min.js"></script>
