@@ -86,6 +86,13 @@ var TopHitsView = Backbone.View.extend({
   render: function () {
     this.$el.html(this.template({ hits: this.hits }));
 
+    // HACK: handles missing favicons
+    this.$el.find('img').error(function (event) {
+      $(event.target).hide();
+    }).load(function (event) {
+      $(event.target).css({ 'visibility': 'visible' }).closest('.default-favicon').css({ 'background-image': 'none' });
+    });
+
     return this;
   },
 
@@ -138,6 +145,13 @@ var AutocompleteSearchResultsView = Backbone.View.extend({
   render: function () {
     this.$el.html(this.template({ results: this.results }));
 
+    // HACK: handles missing favicons
+    this.$el.find('img').error(function (event) {
+      $(event.target).hide();
+    }).load(function (event) {
+      $(event.target).css({ 'visibility': 'visible' }).closest('.default-favicon').css({ 'background-image': 'none' });
+    });
+
     return this;
   },
 
@@ -173,3 +187,6 @@ window.addEventListener('WebChannelMessageToContent', function (event) {
 $(window).mouseenter(function () {
   $('li.selected').removeClass('selected');
 });
+
+// Fix missing favicons
+
