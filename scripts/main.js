@@ -70,6 +70,38 @@ function selectNextItem (increment) {
   sendUrlSelected(result, resultType);
 }
 
+var SearchSuggestionsView = Backbone.View.extend({
+  template: _.template($('#suggestions-template').html()),
+
+  events: {
+    'click': 'openUrl'
+  },
+  initialize: function () {
+    this.hits = topHitsAdapter.hits;
+
+    this.listenTo(this.hits, 'reset', this.render);
+  },
+
+  render: function () {
+    this.$el.html(this.template({ hits: this.hits }));
+
+    // HACK: handles missing favicons
+    this.$el.find('img').error(function (event) {
+      $(event.target).hide();
+    }).load(function (event) {
+      $(event.target).css({ 'visibility': 'visible' }).closest('.default-favicon').css({ 'background-image': 'none' });
+    });
+
+    return this;
+  },
+
+  openUrl: function (event) {
+    var url = $(event.target).closest('.result').find('.result-url').text().trim();
+
+    sendAutocompleteClick(url, 'url');
+  }
+});
+
 var TopHitsView = Backbone.View.extend({
   template: _.template($('#top-hits-template').html()),
 
@@ -103,29 +135,30 @@ var TopHitsView = Backbone.View.extend({
   }
 });
 
-var SearchSuggestionsView = Backbone.View.extend({
-  template: _.template($('#search-suggestions-template').html()),
+var AdsView = Backbone.View.extend({
+  template: _.template($('#ads-template').html()),
 
   events: {
-    'click': 'openSuggestion'
+    'click': 'openAd'
   },
 
   initialize: function () {
-    this.remoteSuggestions = searchSuggestionsAdapter.remoteSuggestions;
-
-    this.listenTo(this.remoteSuggestions, 'reset', this.render);
+    this.ads = adsAdapter.ads;
+    console.log("ads", this.ads);
+    this.listenTo(this.ads, 'reset', this.render);
   },
 
   render: function () {
-    this.$el.html(this.template({ remoteSuggestions: this.remoteSuggestions }));
+    console.log("render ads");
+    this.$el.html(this.template({ ads: this.ads }));
 
     return this;
   },
 
-  openSuggestion: function (event) {
+  openAd: function (event) {
     var url = $(event.target).closest('.result').find('.result-term').text().trim();
 
-    sendAutocompleteClick(url, 'suggestion');
+    sendAutocompleteClick(url, 'ad');
   }
 });
 
@@ -163,6 +196,8 @@ var AutocompleteSearchResultsView = Backbone.View.extend({
 });
 
 // Initialize views
+var adsView = new AdsView({ el: $('#ads')});
+adsView.render();
 var topHitsView = new TopHitsView({ el: $('#top-hits')});
 var searchSuggestionsView = new SearchSuggestionsView({ el: $('#search-suggestions')});
 var autocompleteSearchResultsView = new AutocompleteSearchResultsView({ el: $('#autocomplete-results')});
@@ -170,6 +205,7 @@ var autocompleteSearchResultsView = new AutocompleteSearchResultsView({ el: $('#
 
 // Listen for key events from the chrome
 window.addEventListener('WebChannelMessageToContent', function (event) {
+  console.log("Got message", event.detail.message);
   var message = event.detail.message;
 
   if (message.type === 'navigational-key' && message.data) {
@@ -189,4 +225,3 @@ $(window).mouseenter(function () {
 });
 
 // Fix missing favicons
-

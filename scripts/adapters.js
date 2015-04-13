@@ -55,3 +55,26 @@ topHitsAdapter = (function () {
 
   return instance;
 })();
+
+adsAdapter = (function () {
+  var instance = {};
+
+  instance.ads = new Backbone.Collection();
+  instance.ads.add([
+    {content: "Flying Dutchman"},
+    {content: "Black Pearl"}
+  ]);
+
+  instance.messageReceived = function (e) {
+    var message = e.detail.message;
+
+    if (message.type == 'ads' && message.data) {
+      this.ads.reset(message.data);
+    }
+  };
+
+  // Listen for WebChannel events
+  window.addEventListener('WebChannelMessageToContent', instance.messageReceived.bind(instance));
+
+  return instance;
+})();

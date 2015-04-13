@@ -6,9 +6,30 @@
   <link rel="stylesheet" href="/styles/main.css">
 </head>
 <body>
+  <div id="ads" class="result-region">
+  Ads go here
+  </div>
   <div id="top-hits" class="result-region"></div>
   <div id="search-suggestions" class="result-region"></div>
   <div id="autocomplete-results" class="result-region"></div>
+
+
+  <script id="ads-template" type="text/html">
+  <% if (ads.length) { %>
+    <h2 class="result-group-title">Ads</h2>
+    <ol>
+      <% ads.forEach(function (ad) { %>
+        <li class="result">
+          <span class="icon null"></span>
+          <span class="icon search-result"></span>
+          <span class="result-term result-copy">
+            <%= ad.get('content') %>
+          </span>
+        </li>
+      <% }); %>
+    </ol>
+  <% } %>
+  </script>
 
   <script id="top-hits-template" type="text/html">
     <ol>
