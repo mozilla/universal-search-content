@@ -2,6 +2,17 @@
 
 the iframe that we put inside the autocomplete dropdown
 
+## branch info
+this branch is for prototyping loose ideas for how the new dropdown
+can be used. some of the ideas explored here are:
+
+* site local search. when a user visits a site, the site may declare an available index through a meta description. firefox downloads this index, subjects it to a TTL, and serves results from this index in the time it's active.
+* intent. can we defer intent from local signals (history, time of day, etc.) and use this intent to surface context-specific suggestions - e.g., "weather => weather card". the intent may also be signalled to the search engine
+* full-text history search. why not archive my entire browsing history, index it, and surface content in the new bar
+* ux experiments. test out far-out ux ideas
+* ads. yeah, we all hate them, and it's what indirectly fuels our paycheck
+
+
 ## setup
 
 1. `npm install -g harp`
