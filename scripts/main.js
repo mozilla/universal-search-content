@@ -43,6 +43,7 @@ function selectNextItem (increment) {
       $previousItem.removeClass('selected');
       $item.addClass('selected');
 
+      window.dispatchEvent(new window.CustomEvent('selectionChanged', { detail: { url: $item.find('.result-url').text().trim() } }));
       return selectionChanged = true;
     }
   });
@@ -51,15 +52,19 @@ function selectNextItem (increment) {
   // Note: The selection may not have changed because there is no selected item or because the
   // selected item was the last one on the page
   if (!selectionChanged) {
-    var $previouslySelected = $('li.selected');
+    var $previouslySelected = $('li.selected'),
+      $newlySelected;
 
     if ($previouslySelected[0] === items[0]) {
-      $('li').last().addClass('selected');
+      $newlySelected = $('li').last();
+      $newlySelected.addClass('selected');
     } else {
       // This covers the case where no item was selected OR the last item was selected
-      $('li').first().addClass('selected');
+      $newlySelected = $('li').first();
+      $newlySelected.addClass('selected');
     }
 
+    window.dispatchEvent(new window.CustomEvent('selectionChanged', { detail: { url: $newlySelected.find('.result-url').text().trim() } }));
     $previouslySelected.removeClass('selected');
   }
 
@@ -162,10 +167,95 @@ var AutocompleteSearchResultsView = Backbone.View.extend({
   }
 });
 
+// listen for the selected event
+// when something gets selected, grab its url, xhr a preview from embedly
+// when the embedly data returns, render it
+// hide yourself when the selection is empty or the page visibility changes
+// TODO use embedly's Display API to get a nicely-sized image
+var ContentPreviewView = Backbone.View.extend({
+  template: _.template($('#content-preview-template').html()),
+
+  initialize: function() {
+    window.addEventListener('selectionChanged', this.onSelectionChanged.bind(this));
+
+    // XXX this might be a mistake, do we even know if the page continues to
+    //     run after the popup is dismissed?
+    $(document).on('visibilitychange', this.onVisibilityChanged.bind(this));
+  },
+
+  onSelectionChanged: function($item) {
+    if (!$item) {
+      this.hide();
+    } else {
+      this.render($item);
+    }
+  },
+
+  // TODO will we even need this? or does the iframe close/reopen itself automatically?
+  onVisibilityChanged: function() {
+    if (document.visibilityState == "hidden") {
+      this.hide();
+    }
+  },
+
+  _render: function(stuff) {
+    // actually render the right pane using data returned by embedly
+    // TODO: spinners / transitions / perceived performance tweaks (use url and title until img/desc are available?)
+    this.$el.html(this.template({ result: stuff }));
+    this.show();
+  },
+
+  render: function(evt) {
+    // grab URL out of the event
+    var url = evt.detail.url;
+    if (!url) {
+      // it's a search suggestion...for now, just hide the preview pane and bail
+      return this.hide();
+    }
+
+    var embedlyDeferred = $.embedly.extract(url);
+    embedlyDeferred.done(function onResolved(response) {
+      var result = response[0];
+      if (result && result.error) {
+        // TODO: don't duplicate onError
+        console.log("failed to scrape page " + url + ": ", err);
+        return this.hide();
+      }
+      // grab the few bits we need in the DOM, ship 'em over
+      var data = {
+        url: result.url,
+        title: result.title,
+        description: result.description,
+        providerName: result.provider_name,
+        providerDomain: new URL(result.url).host,
+        faviconUrl: result.favicon_url
+      };
+      if (result.images && result.images.length) {
+        data.img = result.images[0].url;
+      }
+      this._render(data);
+    }.bind(this));
+
+    embedlyDeferred.fail(function onError(url, err) {
+      console.log("failed to scrape page " + url + ": ", err);
+      this.hide();
+    }.bind(this));
+  },
+
+  // TODO effects? maybe an extremely short fade on show?
+  hide: function() {
+    this.$el.hide();
+  },
+  show: function() {
+    this.$el.show();
+  }
+});
+
 // Initialize views
 var topHitsView = new TopHitsView({ el: $('#top-hits')});
 var searchSuggestionsView = new SearchSuggestionsView({ el: $('#search-suggestions')});
 var autocompleteSearchResultsView = new AutocompleteSearchResultsView({ el: $('#autocomplete-results')});
+var contentPreviewView = new ContentPreviewView({ el: $('#content-preview') });
 
 
 // Listen for key events from the chrome
@@ -175,9 +265,11 @@ window.addEventListener('WebChannelMessageToContent', function (event) {
   if (message.type === 'navigational-key' && message.data) {
     // Down arrow and tab move down
     if (message.data.key === 'ArrowDown' || (message.data.key === 'Tab' && !message.data.shiftKey)) {
+      // fire a selected change event
       selectNextItem(1);
     // Up arrow and shift+tab move up
     } else if (message.data.key === 'ArrowUp' || (message.data.key === 'Tab' && message.data.shiftKey)) {
+      // fire a selected change event
       selectNextItem(-1);
     }
   }

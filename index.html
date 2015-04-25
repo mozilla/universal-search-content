@@ -9,6 +9,7 @@
   <div id="top-hits" class="result-region"></div>
   <div id="search-suggestions" class="result-region"></div>
   <div id="autocomplete-results" class="result-region"></div>
+  <div id="content-preview" class="result-region" style="position:absolute; right:0; top: 0; bottom: 0; width: 300px"></div>
 
   <script id="top-hits-template" type="text/html">
     <ol>
@@ -67,6 +68,17 @@
     </ol>
   <% } %>
   </script>
+
+  <script id="content-preview-template" type="text/html">
+    <% if (result) { %>
+      <img src="<%= result.favicon %>">
+        <span><%= result.providerName || result.providerDomain %></span>
+      <img src="<%= result.img %>">
+      <h2><%= result.title %></h2>
+      <p><%= result.description %></p>
+    <% } %>
+  </script>
+
 
   <script src="/scripts/vendor/jquery.min.js"></script>
   <script src="/scripts/vendor/lodash.min.js"></script>
