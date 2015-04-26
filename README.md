@@ -5,9 +5,8 @@ the iframe that we put inside the autocomplete dropdown
 ## setup
 
 1. `npm install -g harp`
-2. if you like having nice things, copy `scripts/config.js.example` to `scripts/config.js` and insert your embedly key
-3. `harp server`
-4. navigate to <http://localhost:9000/>
+2. `harp server`
+3. navigate to <http://localhost:9000/>
 
 ## how to use with your custom gecko
 

@@ -75,6 +75,52 @@ function selectNextItem (increment) {
   sendUrlSelected(result, resultType);
 }
 
+function extractUrl (url) {
+  var deferred = $.Deferred();
+  var cacheKey = 'embedly-extract-' + url;
+
+  // check for cached copy in sessionStorage
+  var result = sessionStorage.getItem(cacheKey);
+
+  if (result) {
+    deferred.resolve(JSON.parse(result));
+  } else {
+    var ajaxDeferred = $.ajax({
+      url: 'https://summarizer.dev.mozaws.net/embedly/1/extract',
+      data: { url: url }
+    });
+
+    ajaxDeferred.done(function onResolved(result) {
+      // grab the few bits we need in the DOM
+      var data = {
+        url: result.url,
+        title: result.title,
+        description: result.description,
+        providerName: result.provider_name,
+        providerDomain: new URL(result.url).host,
+        faviconUrl: result.favicon_url
+      };
+
+      if (result.images && result.images.length) {
+        data.img = result.images[0].url;
+      }
+
+      // cache in sessionStorage
+      sessionStorage.setItem(cacheKey, JSON.stringify(data));
+
+      return deferred.resolve(data);
+    });
+
+    ajaxDeferred.fail(function onError(jqXHR, textStatus, errorThrown) {
+      console.log("failed to scrape page " + url + ": ", textStatus);
+
+      return deferred.reject(textStatus, errorThrown);
+    });
+  }
+
+  return deferred;
+}
+
 var TopHitsView = Backbone.View.extend({
   template: _.template($('#top-hits-template').html()),
 
@@ -213,31 +259,13 @@ var ContentPreviewView = Backbone.View.extend({
       return this.hide();
     }
 
-    var embedlyDeferred = $.embedly.extract(url);
-    embedlyDeferred.done(function onResolved(response) {
-      var result = response[0];
-      if (result && result.error) {
-        // TODO: don't duplicate onError
-        console.log("failed to scrape page " + url + ": ", err);
-        return this.hide();
-      }
-      // grab the few bits we need in the DOM, ship 'em over
-      var data = {
-        url: result.url,
-        title: result.title,
-        description: result.description,
-        providerName: result.provider_name,
-        providerDomain: new URL(result.url).host,
-        faviconUrl: result.favicon_url
-      };
-      if (result.images && result.images.length) {
-        data.img = result.images[0].url;
-      }
+    var deferred = extractUrl(url);
+
+    deferred.done(function (data) {
       this._render(data);
     }.bind(this));
 
-    embedlyDeferred.fail(function onError(url, err) {
-      console.log("failed to scrape page " + url + ": ", err);
+    deferred.fail(function () {
       this.hide();
     }.bind(this));
   },
@@ -256,7 +284,6 @@ var topHitsView = new TopHitsView({ el: $('#top-hits')});
 var searchSuggestionsView = new SearchSuggestionsView({ el: $('#search-suggestions')});
 var autocompleteSearchResultsView = new AutocompleteSearchResultsView({ el: $('#autocomplete-results')});
 var contentPreviewView = new ContentPreviewView({ el: $('#content-preview') });
-
 
 // Listen for key events from the chrome
 window.addEventListener('WebChannelMessageToContent', function (event) {
@@ -279,6 +306,3 @@ window.addEventListener('WebChannelMessageToContent', function (event) {
 $(window).mouseenter(function () {
   $('li.selected').removeClass('selected');
 });
-
-// Fix missing favicons
-
