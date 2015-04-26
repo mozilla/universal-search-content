@@ -16,7 +16,7 @@
       <% hits.forEach(function (hit) { %>
         <li class="result">
           <span class="icon <%= hit.get('type') %>"></span>
-          <span class="icon default-favicon"><img src="https://ucygetfavicon.appspot.com/<%= encodeURIComponent(hit.get('url')) %>?defaulticon=none"></span>
+          <img class="icon favicon" src="https://summarizer.dev.mozaws.net/favicons?url=<%= encodeURIComponent(hit.get('url')) %>">
           <span class="result-copy">
             <% if (hit.get('title')) { %>
               <%= hit.get('title') %> &mdash;
@@ -54,7 +54,7 @@
       <% results.forEach(function (result, index) { %>
         <li class="result">
           <span class="icon <%= result.get('type') %>"></span>
-          <span class="icon default-favicon"><img src="https://ucygetfavicon.appspot.com/<%= encodeURIComponent(result.get('url')) %>?defaulticon=none"></span>
+          <img class="icon favicon" src="https://summarizer.dev.mozaws.net/favicons?url=<%= encodeURIComponent(result.get('url')) %>">
           <span class="result-copy">
             <% if (result.get('title')) { %>
               <%= result.get('title') %> &mdash;

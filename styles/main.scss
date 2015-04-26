@@ -73,18 +73,6 @@ body {
     flex: 0 0 $icon-unit;
     height: $icon-unit;
     margin-right: 6px;
-
-    &.default-favicon {
-      background-image: url(/images/default-favicon@2x.png);
-      background-repeat: no-repeat;
-      background-size: 16px 16px;
-
-      img {
-        height: 16px;
-        width: 16px;
-        visibility: hidden;
-      }
-    }
   }
 
   .search-result,
