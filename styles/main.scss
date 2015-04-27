@@ -73,18 +73,6 @@ body {
     flex: 0 0 $icon-unit;
     height: $icon-unit;
     margin-right: 6px;
-
-    &.default-favicon {
-      background-image: url(/images/default-favicon@2x.png);
-      background-repeat: no-repeat;
-      background-size: 16px 16px;
-
-      img {
-        height: 16px;
-        width: 16px;
-        visibility: hidden;
-      }
-    }
   }
 
   .search-result,
@@ -114,5 +102,54 @@ body {
 
   .result-url  {
     color: $url-blue;
+  }
+}
+
+#content-preview {
+  background: #fff;
+  border-left: 1px solid #eee;
+  bottom: 0;
+  padding: 10px;
+  position: absolute;
+  right:0;
+  top: 0;
+  width: 300px;
+
+  header {
+    //max-height: 175px;
+    position: relative;
+    overflow: hidden;
+
+    .provider {
+      background: #fff;
+      opacity: 0.9;
+      padding: 5px 10px;
+      position: absolute;
+      width: 100%;
+
+      h2 {
+        display: inline-block;
+        font-size: 14px;
+        margin: 0;
+      }
+
+      .favicon {
+        vertical-align: -3px;
+      }
+    }
+
+    .preview-image {
+      width: 100%;
+    }
+  }
+
+  h3 {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .description {
+    font-size: 14px;
+    line-height: 1.5em;
   }
 }
