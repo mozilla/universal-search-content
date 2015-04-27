@@ -9,7 +9,7 @@
   <div id="top-hits" class="result-region"></div>
   <div id="search-suggestions" class="result-region"></div>
   <div id="autocomplete-results" class="result-region"></div>
-  <div id="content-preview" class="result-region" style="position:absolute; right:0; top: 0; bottom: 0; width: 300px"></div>
+  <div id="content-preview"></div>
 
   <script id="top-hits-template" type="text/html">
     <ol>
@@ -71,11 +71,19 @@
 
   <script id="content-preview-template" type="text/html">
     <% if (result) { %>
-      <img src="<%= result.favicon %>">
-        <span><%= result.providerName || result.providerDomain %></span>
-      <img src="<%= result.img %>">
-      <h2><%= result.title %></h2>
-      <p><%= result.description %></p>
+      <header>
+        <div class="provider">
+          <img class="icon favicon" src="https://summarizer.dev.mozaws.net/favicons?url=<%= encodeURIComponent(result.url) %>">
+          <h2><%= result.providerTitle %></h2>
+        </div>
+        <% if (result.imageUrl) { %>
+          <img class="preview-image" src="<%= result.imageUrl %>">
+        <% } %>
+      </header>
+      <% if (result.title != result.providerTitle) { %>
+        <h3><%= result.title %></h3>
+      <% } %>
+      <p class="description"><%= result.description %></p>
     <% } %>
   </script>
 

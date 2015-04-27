@@ -104,3 +104,52 @@ body {
     color: $url-blue;
   }
 }
+
+#content-preview {
+  background: #fff;
+  border-left: 1px solid #eee;
+  bottom: 0;
+  padding: 10px;
+  position: absolute;
+  right:0;
+  top: 0;
+  width: 300px;
+
+  header {
+    //max-height: 175px;
+    position: relative;
+    overflow: hidden;
+
+    .provider {
+      background: #fff;
+      opacity: 0.9;
+      padding: 5px 10px;
+      position: absolute;
+      width: 100%;
+
+      h2 {
+        display: inline-block;
+        font-size: 14px;
+        margin: 0;
+      }
+
+      .favicon {
+        vertical-align: -3px;
+      }
+    }
+
+    .preview-image {
+      width: 100%;
+    }
+  }
+
+  h3 {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .description {
+    font-size: 14px;
+    line-height: 1.5em;
+  }
+}

@@ -96,13 +96,16 @@ function extractUrl (url) {
         url: result.url,
         title: result.title,
         description: result.description,
-        providerName: result.provider_name,
-        providerDomain: new URL(result.url).host,
+        providerTitle: result.provider_name || result.provider_display,
         faviconUrl: result.favicon_url
       };
 
       if (result.images && result.images.length) {
-        data.img = result.images[0].url;
+        var image = result.images[0];
+
+        if (image.width && image.width >= 300) {
+          data.imageUrl = image.url;
+        }
       }
 
       // cache in sessionStorage
@@ -254,9 +257,13 @@ var ContentPreviewView = Backbone.View.extend({
   render: function(evt) {
     // grab URL out of the event
     var url = evt.detail.url;
-    if (!url) {
-      // it's a search suggestion...for now, just hide the preview pane and bail
-      return this.hide();
+
+    // Hide the preview pane while we get the new result
+    this.hide();
+
+    // if it's a search suggestion or a useless url just bail
+    if (!url || url.match(/localhost/) || !url.match(/https?/)) {
+      return;
     }
 
     var deferred = extractUrl(url);
@@ -274,6 +281,7 @@ var ContentPreviewView = Backbone.View.extend({
   hide: function() {
     this.$el.hide();
   },
+
   show: function() {
     this.$el.show();
   }
