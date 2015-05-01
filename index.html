@@ -6,10 +6,15 @@
   <link rel="stylesheet" href="/styles/main.css">
 </head>
 <body>
-  <div id="top-hits" class="result-region"></div>
-  <div id="search-suggestions" class="result-region"></div>
-  <div id="autocomplete-results" class="result-region"></div>
-  <div id="content-preview"></div>
+  
+  <div id="content-wrapper">
+    <div id="list-column">
+      <div id="top-hits" class="result-region" data-region="top"></div>
+      <div id="search-suggestions" class="result-region" data-region="suggestions"></div>
+      <div id="autocomplete-results" class="result-region" data-region="activity"></div>
+    </div>
+    <div id="content-preview"></div>
+  </div>
 
   <script id="top-hits-template" type="text/html">
     <ol>
@@ -49,7 +54,7 @@
 
   <script id="autocomplete-results-template" type="text/html">
   <% if (results.length) { %>
-    <h2 class="result-group-title">Bookmarks &amp; History</h2>
+    <h2 class="result-group-title">Your Activity</h2>
     <ol>
       <% results.forEach(function (result, index) { %>
         <li class="result">

@@ -1,4 +1,6 @@
+
 function sendAutocompleteClick (result, resultType) {
+
   window.dispatchEvent(new window.CustomEvent('WebChannelMessageToChrome', {
     detail: {
       id: 'ohai',
@@ -14,8 +16,7 @@ function sendAutocompleteClick (result, resultType) {
 }
 
 function sendUrlSelected (result, resultType) {
-  console.log("SEND URL SELECTED", result, resultType);
-
+ 
   window.dispatchEvent(new window.CustomEvent('WebChannelMessageToChrome', {
     detail: {
       id: 'ohai',
@@ -115,7 +116,7 @@ function extractUrl (url) {
     });
 
     ajaxDeferred.fail(function onError(jqXHR, textStatus, errorThrown) {
-      console.log("failed to scrape page " + url + ": ", textStatus);
+      console.log('failed to scrape page ' + url + ': ', textStatus);
 
       return deferred.reject(textStatus, errorThrown);
     });
@@ -242,7 +243,7 @@ var ContentPreviewView = Backbone.View.extend({
 
   // TODO will we even need this? or does the iframe close/reopen itself automatically?
   onVisibilityChanged: function() {
-    if (document.visibilityState == "hidden") {
+    if (document.visibilityState == 'hidden') {
       this.hide();
     }
   },
@@ -295,9 +296,14 @@ var contentPreviewView = new ContentPreviewView({ el: $('#content-preview') });
 
 // Listen for key events from the chrome
 window.addEventListener('WebChannelMessageToContent', function (event) {
+
   var message = event.detail.message;
 
   if (message.type === 'navigational-key' && message.data) {
+
+    sessionMetrics.setEngagement();
+    sessionMetrics.setLastNavEventUsed('key');
+
     // Down arrow and tab move down
     if (message.data.key === 'ArrowDown' || (message.data.key === 'Tab' && !message.data.shiftKey)) {
       // fire a selected change event
@@ -308,9 +314,89 @@ window.addEventListener('WebChannelMessageToContent', function (event) {
       selectNextItem(-1);
     }
   }
+
+  // collecting session metrics on open and closed message types
+  if (message.type === 'popupopen') {
+
+    sessionMetrics.set({startTime: new Date().getTime()});
+
+  } else if (message.type === 'popupclose') {
+
+    sessionMetrics.set({endTime: new Date().getTime()}); 
+    sessionMetrics.set({duration:sessionMetrics.getDuration()});
+
+    if (sessionMetrics.attributes.hasEngaged) {
+
+      var selectedGroup = $('li.selected').parent().parent();
+      var resultIndex = selectedGroup.find('.selected').index();
+
+      sessionMetrics.set({resultType: selectedGroup.attr('data-region')});
+      sessionMetrics.set({resultIndex: resultIndex});
+
+    }
+
+    console.log(sessionMetrics.attributes);
+
+  }
+
 });
 
 // Mouse events should clear arrow selection for now
 $(window).mouseenter(function () {
   $('li.selected').removeClass('selected');
 });
+
+
+$(window).mousemove(function () {
+  // get the index of the selected result before the state change
+  var lastSelectedIndex = $('.result').index($('.selected'));
+
+  // set some metrics flags
+  sessionMetrics.setEngagement();
+  sessionMetrics.setLastNavEventUsed('mouse');
+
+  //change the state
+  $('li.selected').removeClass('selected');
+  $('li:hover').addClass('selected');
+
+  // get the index of the new selected result
+  var selectedIndex = $('.result').index($('.selected'));
+
+  if (selectedIndex >= 0 && lastSelectedIndex != selectedIndex) {
+    window.dispatchEvent(new window.CustomEvent('selectionChanged', { detail: { url: $('.selected').find('.result-url').text().trim() } }));
+  }
+
+});
+
+// Model for storing session metrics.
+// Right now this just gets logged out when the popup closes
+// defaults below indicate what's currently collected
+var SessionMetrics = Backbone.Model.extend({
+  defaults: {
+    duration: undefined,
+    endTime: undefined,
+    hasEngaged: false,
+    resultIndex: undefined,
+    resultType: undefined,
+    startTime: undefined
+  },
+
+  getDuration: function() {
+    return this.attributes.endTime - this.attributes.startTime;
+  },
+
+  setEngagement: function() {
+    if(!this.attributes.hasEngaged) {
+      this.set({hasEngaged: true});
+    }
+  },
+
+  setLastNavEventUsed: function(type) {
+    if (this.attributes.lastNavEventUsed != type) {
+      this.set({lastNavEventUsed: type});
+    }
+  }
+
+});
+
+var sessionMetrics = new SessionMetrics();

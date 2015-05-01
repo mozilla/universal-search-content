@@ -11,23 +11,53 @@ html {
   box-sizing: inherit;
   font-size: 14px;
   font-weight: normal;
-  user-select: none
+  user-select: none;
 }
 
 body {
   font-family: message-box, sans-serif;
   margin: 0;
-  overflow: hidden;
   padding: 0;
+}
+
+#content-wrapper {
+  display: flex;
+  height: 100%;
+  justify-content: space-around;
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+
+  #list-column {
+    flex: 1 1 0;
+    min-width: 0px;
+  }
+
+  #content-preview {
+    padding-bottom: 10px;
+    height: 100%;
+    border-left: 1px solid #eee;
+    flex: 0 0 300px;
+    overflow: hidden;
+  }
 }
 
 #top-hits {
   margin-top: 14px;
 }
 
-.result-region {
+span[class^=result] {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+}
+
+.result-region  {
   margin: 0 6px;
-  max-width: 100%;
+  display: block;
+  overflow: hidden;
+  position: relative;
+  top: 1px;
 
   .result-group-title {
     color: $title-grey;
@@ -46,8 +76,12 @@ body {
     cursor: pointer;
     display: flex;
     padding: 5px 14px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 
-    &:hover, &.selected {
+
+    &.selected {
       background: $url-blue;
 
       .result-copy {
@@ -82,7 +116,7 @@ body {
   }
 
   .search-result {
-    background-position: 0 0;
+    background-position: 0 0 100%;
   }
 
   .bookmark {
@@ -93,11 +127,7 @@ body {
     display: block;
     flex: 1;
     height: 14px;
-    overflow: hidden;
-    position: relative;
-    text-overflow: ellipsis;
     top: 1px;
-    white-space: nowrap;
   }
 
   .result-url  {
@@ -108,15 +138,9 @@ body {
 #content-preview {
   background: #fff;
   border-left: 1px solid #eee;
-  bottom: 0;
   padding: 10px;
-  position: absolute;
-  right:0;
-  top: 0;
-  width: 300px;
 
   header {
-    //max-height: 175px;
     position: relative;
     overflow: hidden;
 
