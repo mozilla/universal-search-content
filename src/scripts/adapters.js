@@ -7,6 +7,7 @@ searchSuggestionsAdapter = (function () {
 
   instance.messageReceived = function (e) {
     var message = e.detail.message;
+    if (!message) { return; }
 
     if (message.type == 'suggested-search-results' && message.data && message.data.results) {
       this.searchTerm = message.data.results.term;
@@ -28,6 +29,7 @@ autocompleteSearchResultsAdapter = (function () {
 
   instance.messageReceived = function (e) {
     var message = e.detail.message;
+    if (!message) { return; }
 
     if (message.type == 'autocomplete-search-results' && message.data) {
       this.results.reset(message.data);
@@ -47,6 +49,8 @@ remoteTabsAdapter = (function () {
 
   instance.messageReceived = function (e) {
     var message = e.detail.message;
+    if (!message) { return; }
+
     var tabs = [];
 
     if (message.type == 'remote-tabs' && message.data && message.data.clients && message.data.clients.length) {
