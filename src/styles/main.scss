@@ -1,5 +1,7 @@
 $title-grey: #999999;
 $white: #ffffff;
+$border-grey: #f0f0f0;
+$black: #000000;
 $url-blue: #0394dd;
 
 $icon-unit: 16px;
@@ -7,31 +9,40 @@ $icon-unit: 16px;
 html {
   box-sizing: border-box;
 }
+
 *, *:before, *:after {
   box-sizing: inherit;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: normal;
-  user-select: none
+  user-select: none;
 }
 
 body {
+  background: $white;
   font-family: message-box, sans-serif;
   margin: 0;
-  overflow: hidden;
   padding: 0;
 }
 
-#top-hits {
-  margin-top: 14px;
-}
+.result-region  {
+  border-bottom: 1px solid $border-grey;
+  margin: 8px 0 0 0s;
+  padding: 8px 19px;
 
-.result-region {
-  margin: 0 6px;
-  max-width: 100%;
+  &:first-child {
+    margin-top: 8px;
+  }
+
+  &:last-child {
+    border-bottom: none;
+    margin-bottom: 8px;
+  }
 
   .result-group-title {
-    color: $title-grey;
-    padding: 0 12px;
+    color: $black;
+    font-weight: bold;
+    line-height: 22px;
+    margin: 0 0 4px 0;
   }
 
   ol {
@@ -45,9 +56,27 @@ body {
     border-radius: 2px;
     cursor: pointer;
     display: flex;
-    padding: 5px 14px;
+    margin: 0 -4px;
+    padding: 4px;
 
-    &:hover, &.selected {
+    >span[class^="result-"] {
+      overflow-x: hidden;
+      text-overflow: ellipsis;
+      text-wrap: nowrap;
+      white-space: nowrap;
+    }
+
+    .result-copy {
+      position: relative;
+      top: 1px;
+    }
+
+    .result-url  {
+      color: $url-blue;
+    }
+  
+    &.selected,
+    &:hover {
       background: $url-blue;
 
       .result-copy {
@@ -56,100 +85,51 @@ body {
 
       .result-url {
         color: $white;
+        overflow-x: hidden;
       }
 
-      .search-result {
+      .icon-search {
         background-position: 0 -1 * $icon-unit;
       }
 
-      .bookmark {
+      .icon-bookmark {
         background-position: -1 * $icon-unit  -1 * $icon-unit;
       }
+
+      .icon-history {
+        background-position: -2 * $icon-unit -1 * $icon-unit;
+      }
     }
-  }
-
-  .icon {
-    display: block;
-    flex: 0 0 $icon-unit;
-    height: $icon-unit;
-    margin-right: 6px;
-  }
-
-  .search-result,
-  .bookmark {
-    background: url(/images/search-sprite@2x.png) no-repeat;
-    background-size: 3 * $icon-unit 2 * $icon-unit;
-  }
-
-  .search-result {
-    background-position: 0 0;
-  }
-
-  .bookmark {
-    background-position: -$icon-unit 0;
-  }
-
-  .result-copy {
-    display: block;
-    flex: 1;
-    height: 14px;
-    overflow: hidden;
-    position: relative;
-    text-overflow: ellipsis;
-    top: 1px;
-    white-space: nowrap;
-  }
-
-  .result-url  {
-    color: $url-blue;
   }
 }
 
+.icon {
+  display: block;
+  flex: 0 0 $icon-unit;
+  height: $icon-unit;
+  margin-right: 5px;
+  position: relative;
+}
+
+.icon-search,
+.icon-history,
+.icon-bookmark {
+  background: url(../images/search-sprite@2x.png) no-repeat;
+  background-size: 3 * $icon-unit 2 * $icon-unit;
+}
+
+.icon-bookmark {
+  background-position: -$icon-unit 0;
+  position: relative;
+  top: -1px;
+}
+
+.icon-history {
+  background-position: -2 * $icon-unit 0;
+}
+
+//hide the content preview for now
+
 #content-preview {
-  background: #fff;
-  border-left: 1px solid #eee;
-  bottom: 0;
-  padding: 10px;
-  position: absolute;
-  right:0;
-  top: 0;
-  width: 300px;
-
-  header {
-    //max-height: 175px;
-    position: relative;
-    overflow: hidden;
-
-    .provider {
-      background: #fff;
-      opacity: 0.9;
-      padding: 5px 10px;
-      position: absolute;
-      width: 100%;
-
-      h2 {
-        display: inline-block;
-        font-size: 14px;
-        margin: 0;
-      }
-
-      .favicon {
-        vertical-align: -3px;
-      }
-    }
-
-    .preview-image {
-      width: 100%;
-    }
-  }
-
-  h3 {
-    font-size: 18px;
-    font-weight: bold;
-  }
-
-  .description {
-    font-size: 14px;
-    line-height: 1.5em;
-  }
+  display: none;
 }
