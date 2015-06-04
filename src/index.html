@@ -6,10 +6,16 @@
   <link rel="stylesheet" href="/styles/main.css">
 </head>
 <body>
-  <div id="top-hits" class="result-region"></div>
-  <div id="search-suggestions" class="result-region"></div>
-  <div id="autocomplete-results" class="result-region"></div>
-  <div id="content-preview"></div>
+
+  <!--wrap all results or the :last-child selector targets script tags-->
+  <div id="results-wrapper">
+    <div id="top-hits" class="result-region"></div>
+    <div id="search-suggestions" class="result-region"></div>
+    <div id="autocomplete-results" class="result-region"></div>
+  </div>
+  <div id="preview-wrapper">
+    <div id="content-preview"></div>
+  </div>
 
   <script id="top-hits-template" type="text/html">
     <ol>
@@ -36,8 +42,8 @@
     <ol>
       <% remoteSuggestions.forEach(function (suggestion) { %>
         <li class="result">
-          <span class="icon null"></span>
-          <span class="icon search-result"></span>
+          <span class="icon icon-null"></span>
+          <span class="icon icon-search"></span>
           <span class="result-term result-copy">
             <%= suggestion.get('term') %>
           </span>
@@ -53,7 +59,7 @@
     <ol>
       <% results.forEach(function (result, index) { %>
         <li class="result">
-          <span class="icon <%= result.get('type') %>"></span>
+          <span class="icon icon-<%= result.get('type') %>"></span>
           <img class="icon favicon" src="https://summarizer.dev.mozaws.net/favicons?url=<%= encodeURIComponent(result.get('url')) %>">
           <span class="result-copy">
             <% if (result.get('title')) { %>
