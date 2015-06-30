@@ -95,15 +95,15 @@ body {
       }
 
       .icon-search-remote {
-        background-position: 0 -1 * $icon-unit;
+        background-position: 0 (-1 * $icon-unit);
       }
 
       .icon-bookmark {
-        background-position: -1 * $icon-unit -1 * $icon-unit;
+        background-position: (-1 * $icon-unit) (-1 * $icon-unit);
       }
 
       .icon-search-local {
-        background-position: -2 * $icon-unit -1 * $icon-unit;
+        background-position: (-2 * $icon-unit) (-1 * $icon-unit);
       }
     }
   }
@@ -121,17 +121,17 @@ body {
 .icon-search-local,
 .icon-bookmark {
   background: url(../images/search-sprite@2x.png) no-repeat;
-  background-size: 3 * $icon-unit 2 * $icon-unit;
+  background-size: (3 * $icon-unit) (2 * $icon-unit);
 }
 
 .icon-bookmark {
-  background-position: -$icon-unit 0;
+  background-position: (-1 * $icon-unit) 0;
   position: relative;
   top: -1px;
 }
 
 .icon-search-local {
-  background-position: -2 * $icon-unit 0;
+  background-position: (-2 * $icon-unit) 0;
 }
 
 //hide the content preview for now
