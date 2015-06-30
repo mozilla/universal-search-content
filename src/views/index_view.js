@@ -50,9 +50,9 @@ export default BaseView.extend({
 
         // wrap around backwards from first to last
         if (newIndex < 0) {
-          newlySelected = items[items.length - 1]
+          newlySelected = items[items.length - 1];
         // wrap around from last to first
-        } else if (newIndex == items.length) {
+        } else if (newIndex === items.length) {
           newlySelected = items[0];
         } else {
           newlySelected = items[newIndex];
@@ -71,7 +71,7 @@ export default BaseView.extend({
       if (increment > 0) {
         newlySelected = items[0];
       } else {
-        newlySelected = items[items.length - 1]
+        newlySelected = items[items.length - 1];
       }
     }
 
