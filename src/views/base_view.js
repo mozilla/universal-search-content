@@ -1,4 +1,5 @@
 import AmpersandView from 'ampersand-view';
+import dom from 'ampersand-dom';
 
 export default AmpersandView.extend({
   render () {
@@ -13,5 +14,13 @@ export default AmpersandView.extend({
   beforeRender () {},
 
   // implement in submodules
-  afterRender () {}
+  afterRender () {},
+
+  show () {
+    dom.show(this.el);
+  },
+
+  hide () {
+    dom.hide(this.el);
+  }
 });

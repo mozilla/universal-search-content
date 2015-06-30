@@ -8,9 +8,9 @@ export default BaseView.extend({
   template: TopHitsIndexTemplate,
 
   initialize () {
-    this.results = activityResultsAdapter.results;
+    this.adapter = activityResultsAdapter;
 
-    this.listenTo(this.results, 'reset', this.render);
+    this.listenTo(this.adapter.results, 'reset', this.render);
   },
 
   beforeRender () {
@@ -19,7 +19,10 @@ export default BaseView.extend({
 
   afterRender () {
     // TODO: replace this with proper top hits dispatching
-    this.renderCollection(new ActivityResults([this.results.at(0)]), ActivityItemView, '.top-hits-results');
+    this.renderCollection(new ActivityResults([this.adapter.results.at(0)]), ActivityItemView, '.top-hits-results');
+
+    // if there are results then show otherwise hide
+    this.adapter.results.length ? this.show() : this.hide();
 
     console.timeEnd('render: TopHitsIndex');
   }

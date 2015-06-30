@@ -19,6 +19,9 @@ export default BaseView.extend({
   afterRender () {
     this.renderCollection(this.adapter.results, ActivityItemView, '.activity-results');
 
+    // if there are results then show otherwise hide
+    this.adapter.results.length ? this.show() : this.hide();
+
     console.timeEnd('render: ActivityIndex');
   }
 });

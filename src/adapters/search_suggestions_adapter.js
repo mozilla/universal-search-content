@@ -1,6 +1,7 @@
 import State from 'ampersand-state';
 import _c from 'lodash/collection';
 import SearchSuggestions from '../collections/search_suggestions';
+import SearchSuggestion from '../models/search_suggestion';
 import webChannel from '../lib/web_channel';
 
 const SearchSuggestionsAdapter = State.extend({
@@ -40,6 +41,11 @@ const SearchSuggestionsAdapter = State.extend({
 
     let combined = local.slice(0, this.maxLocalSuggestions);
     combined = combined.concat(remote.slice(0, this.maxCombinedSuggestions - combined.length));
+
+    // add the current search term when there are no results
+    if (combined.length === 0) {
+      combined.push(new SearchSuggestion({ term: this.searchTerm, type: 'remote' }));
+    }
 
     this.combinedSuggestions.reset(combined);
   }
