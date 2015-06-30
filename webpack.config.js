@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const AppCachePlugin = require('appcache-webpack-plugin');
 
 module.exports = {
   entry: './src/main.js',
@@ -7,8 +8,9 @@ module.exports = {
     filename: 'bundle.js'
   },
   plugins: [
+    new AppCachePlugin(),
     new HtmlWebpackPlugin({
-      hash: true,
+      hash: false,
       title: 'Universal Search'
     })
   ],
