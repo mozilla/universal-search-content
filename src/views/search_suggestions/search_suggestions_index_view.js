@@ -7,11 +7,9 @@ export default BaseView.extend({
   template: SearchSuggestionsIndexTemplate,
 
   initialize () {
-    this.remoteSuggestions = searchSuggestionsAdapter.remoteSuggestions;
-    this.localSuggestions = searchSuggestionsAdapter.localSuggestions;
+    this.adapter = searchSuggestionsAdapter;
 
-    this.listenTo(this.localSuggestions, 'reset', this.render);
-    this.listenTo(this.remoteSuggestions, 'reset', this.render);
+    this.listenTo(this.adapter.combinedSuggestions, 'reset', this.render);
   },
 
   beforeRender () {
@@ -19,17 +17,8 @@ export default BaseView.extend({
   },
 
   afterRender () {
-    this.renderLocalSuggestions();
-    this.renderRemoteSuggestions();
+    this.renderCollection(this.adapter.combinedSuggestions, SearchSuggestionsItemView, '.combined-search-suggestions');
 
     console.timeEnd('render: SearchSuggestionsIndex');
-  },
-
-  renderLocalSuggestions () {
-    this.renderCollection(this.localSuggestions, SearchSuggestionsItemView, '.local-search-suggestions');
-  },
-
-  renderRemoteSuggestions () {
-    this.renderCollection(this.remoteSuggestions, SearchSuggestionsItemView, '.remote-search-suggestions');
   }
 });
