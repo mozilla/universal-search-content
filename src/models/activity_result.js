@@ -21,5 +21,5 @@ export default Model.extend({
         return 'https://summarizer.dev.mozaws.net/favicons?url=' + encodeURIComponent(this.url);
       }
     }
-  },
+  }
 });

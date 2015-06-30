@@ -11,8 +11,12 @@ class SearchSuggestionsAdapter {
     webChannel.on('suggested-search-results', (data) => {
       if (data && data.results) {
         this.searchTerm = data.results.term;
-        this.remoteSuggestions.reset(_c.collect(data.results.remote, function (t) { return { term: t, type: 'remote' } }));
-        this.localSuggestions.reset(_c.collect(data.results.local, function (t) { return { term: t, type: 'local' } }));
+        this.remoteSuggestions.reset(_c.collect(data.results.remote, function (t) {
+          return { term: t, type: 'remote' };
+        }));
+        this.localSuggestions.reset(_c.collect(data.results.local, function (t) {
+          return { term: t, type: 'local' };
+        }));
       }
     });
   }
