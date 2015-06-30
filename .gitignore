@@ -1,11 +1,5 @@
-src/scripts/config.js
-gulpconfig.js
 npm-debug.log
 node_modules/
 .DS_Store
 .sass-cache/
-*.sw?
-*.app/
 dist/
-dist-*/
-.awspublish-*
