@@ -35,7 +35,11 @@ export default BaseView.extend({
   },
 
   clearSelection (e) {
-    dom.removeClass(this.query('li.selected'), 'selected');
+    let selectedItem = this.query('li.selected');
+
+    if (selectedItem) {
+      dom.removeClass(selectedItem, 'selected');
+    }
   },
 
   _selectNextItem (increment) {
