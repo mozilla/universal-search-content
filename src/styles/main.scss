@@ -45,6 +45,10 @@ body {
     font-weight: bold;
     line-height: 22px;
     margin: 0 0 4px 0;
+
+    span {
+      font-weight: bold;
+    }
   }
 
   ol {
@@ -90,15 +94,15 @@ body {
         overflow-x: hidden;
       }
 
-      .icon-search {
+      .icon-search-remote {
         background-position: 0 -1 * $icon-unit;
       }
 
       .icon-bookmark {
-        background-position: -1 * $icon-unit  -1 * $icon-unit;
+        background-position: -1 * $icon-unit -1 * $icon-unit;
       }
 
-      .icon-history {
+      .icon-search-local {
         background-position: -2 * $icon-unit -1 * $icon-unit;
       }
     }
@@ -113,8 +117,8 @@ body {
   position: relative;
 }
 
-.icon-search,
-.icon-history,
+.icon-search-remote,
+.icon-search-local,
 .icon-bookmark {
   background: url(../images/search-sprite@2x.png) no-repeat;
   background-size: 3 * $icon-unit 2 * $icon-unit;
@@ -126,7 +130,7 @@ body {
   top: -1px;
 }
 
-.icon-history {
+.icon-search-local {
   background-position: -2 * $icon-unit 0;
 }
 

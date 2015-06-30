@@ -7,9 +7,9 @@ export default BaseView.extend({
   template: ActivityIndexTemplate,
 
   initialize () {
-    this.results = activityResultsAdapter.results;
+    this.adapter = activityResultsAdapter;
 
-    this.listenTo(this.results, 'reset', this.render);
+    this.listenTo(this.adapter.results, 'reset', this.render);
   },
 
   beforeRender () {
@@ -17,7 +17,7 @@ export default BaseView.extend({
   },
 
   afterRender () {
-    this.renderCollection(this.results, ActivityItemView, '.activity-results');
+    this.renderCollection(this.adapter.results, ActivityItemView, '.activity-results');
 
     console.timeEnd('render: ActivityIndex');
   }

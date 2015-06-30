@@ -1,26 +1,49 @@
-import webChannel from '../lib/web_channel';
+import State from 'ampersand-state';
 import _c from 'lodash/collection';
 import SearchSuggestions from '../collections/search_suggestions';
+import webChannel from '../lib/web_channel';
 
-class SearchSuggestionsAdapter {
-  constructor () {
+const SearchSuggestionsAdapter = State.extend({
+  props: {
+    engine: 'string',
+    searchTerm: 'string'
+  },
+
+  initialize () {
+    this.maxLocalSuggestions = 2;
+    this.maxCombinedSuggestions = 5;
+
     this.remoteSuggestions = new SearchSuggestions();
     this.localSuggestions = new SearchSuggestions();
-    this.searchTerm = '';
+    this.combinedSuggestions = new SearchSuggestions();
 
     webChannel.on('suggested-search-results', (data) => {
       if (data && data.results) {
+        this.engine = data.engine;
         this.searchTerm = data.results.term;
+
         this.remoteSuggestions.reset(_c.collect(data.results.remote, function (t) {
           return { term: t, type: 'remote' };
         }));
         this.localSuggestions.reset(_c.collect(data.results.local, function (t) {
           return { term: t, type: 'local' };
         }));
+
+        this.combineSuggestions();
       }
     });
+  },
+
+  combineSuggestions () {
+    let remote = this.remoteSuggestions.models;
+    let local = this.localSuggestions.models;
+
+    let combined = local.slice(0, this.maxLocalSuggestions);
+    combined = combined.concat(remote.slice(0, this.maxCombinedSuggestions - combined.length));
+
+    this.combinedSuggestions.reset(combined);
   }
-}
+});
 
 // export singleton
 export default new SearchSuggestionsAdapter();

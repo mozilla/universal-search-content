@@ -1,6 +1,5 @@
 import BaseView from './base_view';
 import TopHitsIndexView from './top_hits/top_hits_index_view';
-import NavigationalSearchSuggestionsIndex from './navigational_suggestions/navigational_suggestions_index_view';
 import SearchSuggestionsIndexView from './search_suggestions/search_suggestions_index_view';
 import ActivityIndexView from './activity/activity_index_view';
 import IndexTemplate from '../templates/index.html';
@@ -21,7 +20,6 @@ export default BaseView.extend({
 
   afterRender () {
     this.renderSubview(new TopHitsIndexView());
-    // this.renderSubview(new NavigationalSearchSuggestionsIndex());
     this.renderSubview(new SearchSuggestionsIndexView());
     this.renderSubview(new ActivityIndexView());
   },
