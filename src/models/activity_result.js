@@ -1,25 +1,9 @@
-import Model from 'ampersand-model';
+import State from 'ampersand-state';
 
-export default Model.extend({
-  props: {
-    title: 'string',
-    type: 'string',
-    url: 'string'
-  },
+export default State.extend({
+  extraProperties: 'allow',
 
-  derived: {
-    displayName: {
-      deps: ['title', 'url'],
-      fn () {
-        return this.title || this.url;
-      }
-    },
-
-    faviconUrl: {
-      deps: ['url'],
-      fn () {
-        return 'https://summarizer.dev.mozaws.net/favicons?url=' + encodeURIComponent(this.url);
-      }
-    }
+  faviconUrl () {
+    return 'https://summarizer.dev.mozaws.net/favicons?url=' + encodeURIComponent(this.url);
   }
 });

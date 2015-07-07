@@ -13,17 +13,13 @@ export default BaseView.extend({
     this.listenTo(this.adapter.results, 'reset', this.render);
   },
 
-  beforeRender () {
-    console.time('render: TopHitsIndex');
-  },
-
   afterRender () {
+    this.removeSubviews();
+
     // TODO: replace this with proper top hits dispatching
     this.renderCollection(new ActivityResults([this.adapter.results.at(0)]), ActivityItemView, '.top-hits-results');
 
     // if there are results then show otherwise hide
     this.adapter.results.length ? this.show() : this.hide(); // eslint-disable-line no-unused-expressions
-
-    console.timeEnd('render: TopHitsIndex');
   }
 });
