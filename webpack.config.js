@@ -23,5 +23,9 @@ module.exports = {
       { test: /\.scss$/, loader: 'style!css!sass?sourceMap' },
       { test: /\.png$/, loader: 'url-loader?limit=100000' }
     ]
+  },
+  devServer: {
+    contentBase: "./dist",
+    https: true
   }
 };
