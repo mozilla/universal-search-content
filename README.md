@@ -6,7 +6,7 @@ the iframe that we put inside the autocomplete dropdown
 
 1. `npm install`
 2. `npm start`
-3. navigate to <http://localhost:8080/>
+3. navigate to <https://localhost:8080/>
 
 ## build
 

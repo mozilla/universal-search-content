@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --optimize-minimize --optimize-dedupe",
     "lint": "eslint .",
-    "start": "webpack-dev-server --content-base dist/",
+    "start": "webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Mozilla",
