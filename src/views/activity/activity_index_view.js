@@ -20,7 +20,7 @@ export default BaseView.extend({
     this.renderCollection(this.adapter.results, ActivityItemView, '.activity-results');
 
     // if there are results then show otherwise hide
-    this.adapter.results.length ? this.show() : this.hide();
+    this.adapter.results.length ? this.show() : this.hide(); // eslint-disable-line no-unused-expressions
 
     console.timeEnd('render: ActivityIndex');
   }
