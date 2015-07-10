@@ -6,12 +6,16 @@ export default BaseView.extend({
   template: ActivityItemView,
 
   events: {
-    'click': 'openUrl',
+    'mousedown': 'openUrl',
     'select': 'sendSelectionDetails'
   },
 
   openUrl (event) {
-    webChannel.sendAutocompleteClick(this.model.url, 'url');
+    // we have to use mousedown, not click, because of browser bugs.
+    // see https://github.com/mozilla/universal-search-addon/issues/20 for more.
+    if (event.which === 1) {
+      webChannel.sendAutocompleteClick(this.model.url, 'url');
+    }
   },
 
   sendSelectionDetails (event) {
