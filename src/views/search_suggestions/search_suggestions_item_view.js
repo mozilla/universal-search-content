@@ -6,12 +6,16 @@ export default BaseView.extend({
   template: SearchSuggestionsItemTemplate,
 
   events: {
-    'click': 'openSuggestion',
+    'mousedown': 'openSuggestion',
     'select': 'sendSelectionDetails'
   },
 
   openSuggestion (event) {
-    webChannel.sendAutocompleteClick(this.model.term, 'suggestion');
+    // we have to use mousedown, not click, because of browser bugs.
+    // see https://github.com/mozilla/universal-search-addon/issues/20 for more.
+    if (event.which === 1) {
+      webChannel.sendAutocompleteClick(this.model.term, 'suggestion');
+    }
   },
 
   sendSelectionDetails (event) {
