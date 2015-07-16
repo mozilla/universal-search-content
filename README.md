@@ -2,6 +2,8 @@
 
 the iframe that we put inside the autocomplete dropdown
 
+[![Build Status](https://travis-ci.org/mozilla/universal-search-content.svg?branch=master)](https://travis-ci.org/mozilla/universal-search-content)
+
 ## develop
 
 1. `npm install`
