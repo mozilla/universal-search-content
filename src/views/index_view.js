@@ -24,6 +24,17 @@ export default BaseView.extend({
     this.renderSubview(new ActivityIndexView());
   },
 
+  _handleEnter () {
+    let selectedItem = this.query('li.selected');
+    if (selectedItem) {
+      // trick the element into navigating
+      // TODO: use JS events, not DOM events, for signaling (issue #37)
+      var fakeClick = new CustomEvent('mousedown');
+      fakeClick.which = 1;
+      selectedItem.dispatchEvent(fakeClick);
+    }
+  },
+
   dispatchKeypress (data) {
     // down arrow and tab move down
     if (data.key === 'ArrowDown' || (data.key === 'Tab' && !data.shiftKey)) {
@@ -31,6 +42,9 @@ export default BaseView.extend({
     // up arrow and shift+tab move up
     } else if (data.key === 'ArrowUp' || (data.key === 'Tab' && data.shiftKey)) {
       this._selectNextItem(-1);
+    // enter triggers a navigation
+    } else if (data.key === 'Enter') {
+      this._handleEnter();
     }
   },
 
