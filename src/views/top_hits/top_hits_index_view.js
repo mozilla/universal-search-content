@@ -22,7 +22,7 @@ export default BaseView.extend({
     this.renderCollection(new ActivityResults([this.adapter.results.at(0)]), ActivityItemView, '.top-hits-results');
 
     // if there are results then show otherwise hide
-    this.adapter.results.length ? this.show() : this.hide();
+    this.adapter.results.length ? this.show() : this.hide(); // eslint-disable-line no-unused-expressions
 
     console.timeEnd('render: TopHitsIndex');
   }
