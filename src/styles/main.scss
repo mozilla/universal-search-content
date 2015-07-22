@@ -14,7 +14,7 @@ html {
 
 *, *:before, *:after {
   box-sizing: inherit;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: normal;
   -moz-user-select: none;
   user-select: none;
@@ -30,11 +30,7 @@ body {
 .result-region {
   border-bottom: 1px solid $border-grey;
   margin: 8px 0 0 0s;
-  padding: 8px 19px;
-
-  &:first-child {
-    margin-top: 8px;
-  }
+  padding: 8px 12px;
 
   &:last-child {
     border-bottom: none;
@@ -82,8 +78,11 @@ body {
       color: $url-blue;
     }
 
-    &.selected,
     &:hover {
+      background: $border-grey;
+    }
+
+    &.selected {
       background: $url-blue;
 
       .result-copy {
@@ -114,7 +113,7 @@ body {
   display: block;
   flex: 0 0 $icon-unit;
   height: $icon-unit;
-  margin-right: 5px;
+  margin-right: 6px;
   position: relative;
 }
 
