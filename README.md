@@ -18,3 +18,9 @@ the iframe that we put inside the autocomplete dropdown
 ## postmessage API docs
 
 https://gist.github.com/6a68/48bf56e5b66e8631b522
+
+## debugging and performance tuning
+
+1. Navigate to <https://localhost:8080/>
+2. Show the debugger by running `app.showDebugger()` in the console
+3. Enable event recording so that events can be replayed for debugging and performance tuning

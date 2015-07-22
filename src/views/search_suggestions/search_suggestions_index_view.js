@@ -12,13 +12,8 @@ export default BaseView.extend({
     this.listenTo(this.adapter.combinedSuggestions, 'reset', this.render);
   },
 
-  beforeRender () {
-    console.time('render: SearchSuggestionsIndex');
-  },
-
   afterRender () {
+    this.removeSubviews();
     this.renderCollection(this.adapter.combinedSuggestions, SearchSuggestionsItemView, '.combined-search-suggestions');
-
-    console.timeEnd('render: SearchSuggestionsIndex');
   }
 });

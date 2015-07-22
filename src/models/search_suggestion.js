@@ -1,8 +1,5 @@
-import Model from 'ampersand-model';
+import State from 'ampersand-state';
 
-export default Model.extend({
-  props: {
-    term: 'string',
-    type: 'string'
-  }
+export default State.extend({
+  extraProperties: 'allow'
 });

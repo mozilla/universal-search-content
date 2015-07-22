@@ -12,16 +12,11 @@ export default BaseView.extend({
     this.listenTo(this.adapter.results, 'reset', this.render);
   },
 
-  beforeRender () {
-    console.time('render: ActivityIndex');
-  },
-
   afterRender () {
+    this.removeSubviews();
     this.renderCollection(this.adapter.results, ActivityItemView, '.activity-results');
 
     // if there are results then show otherwise hide
     this.adapter.results.length ? this.show() : this.hide(); // eslint-disable-line no-unused-expressions
-
-    console.timeEnd('render: ActivityIndex');
   }
 });

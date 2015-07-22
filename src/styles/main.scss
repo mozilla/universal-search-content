@@ -140,3 +140,32 @@ body {
 #content-preview {
   display: none;
 }
+
+.debugger-index {
+  background: #eee;
+  border-bottom: 1px solid #ccc;
+  overflow: auto;
+
+  h2 {
+    color: #555;
+    float: left;
+    font-weight: bold;
+    padding: 0 10px;
+    text-transform: lowercase;
+  }
+
+  form {
+    margin-top: 5px;
+
+    button {
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      padding: 4px 6px;
+
+      &:active {
+        background: #ddd;
+      }
+    }
+  }
+}
