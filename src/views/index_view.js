@@ -32,6 +32,9 @@ export default BaseView.extend({
       var fakeClick = new CustomEvent('mousedown');
       fakeClick.which = 1;
       selectedItem.dispatchEvent(fakeClick);
+    } else {
+      // if there's no selection, fire back an empty response
+      webChannel.sendUrlSelected(null, 'empty');
     }
   },
 
