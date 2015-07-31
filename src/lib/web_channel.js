@@ -7,12 +7,14 @@ class WebChannel {
 
     // listen for WebChannel messages
     window.addEventListener('WebChannelMessageToContent', this._messageReceived.bind(this));
+
+    this.channelId = null;
   }
 
   sendMessage (type, data) {
     window.dispatchEvent(new window.CustomEvent('WebChannelMessageToChrome', {
       detail: {
-        id: 'ohai',
+        id: this.channelId,
         message: {
           type: type,
           data: data
@@ -36,8 +38,12 @@ class WebChannel {
   }
 
   _messageReceived (e) {
-    const message = e.detail.message;
+    const newChannelId = e.detail.id;
+    if (this.channelId !== newChannelId) {
+      this.channelId = newChannelId;
+    }
 
+    const message = e.detail.message;
     if (message && message.data) {
       this.trigger(message.type, message.data);
     }
