@@ -17,7 +17,7 @@ the iframe that we put inside the autocomplete dropdown
 
 ## postmessage API docs
 
-https://gist.github.com/6a68/48bf56e5b66e8631b522
+https://github.com/mozilla/universal-search-addon/blob/master/docs/API.md
 
 ## debugging and performance tuning
 
