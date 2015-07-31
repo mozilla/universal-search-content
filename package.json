@@ -23,6 +23,7 @@
     "lodash": "^3.9.3",
     "mustache-loader": "^0.3.0",
     "node-libs-browser": "^0.5.2",
+    "node-normalize-scss": "1.0.3",
     "node-sass": "^3.2.0",
     "raw-loader": "^0.5.1",
     "sass-loader": "^1.0.2",
