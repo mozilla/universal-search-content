@@ -29,7 +29,7 @@ export default BaseView.extend({
     if (selectedItem) {
       // trick the element into navigating
       // TODO: use JS events, not DOM events, for signaling (issue #37)
-      var fakeClick = new CustomEvent('mousedown');
+      let fakeClick = new CustomEvent('mousedown');
       fakeClick.which = 1;
       selectedItem.dispatchEvent(fakeClick);
     } else {
@@ -61,7 +61,7 @@ export default BaseView.extend({
 
   _selectNextItem (increment) {
     const items = document.querySelectorAll('li');
-    var newlySelected;
+    let newlySelected;
 
     Array.prototype.some.call(items, function (item, i) {
       if (dom.hasClass(item, 'selected')) {
