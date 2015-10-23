@@ -21,6 +21,7 @@
     "html-webpack-plugin": "^1.5.0",
     "loader-utils": "^0.2.10",
     "lodash": "^3.9.3",
+    "lodash.debounce": "^3.1.1",
     "mustache-loader": "^0.3.0",
     "node-libs-browser": "^0.5.2",
     "node-normalize-scss": "1.0.3",
