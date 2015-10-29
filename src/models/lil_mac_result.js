@@ -7,6 +7,12 @@ import State from 'ampersand-state';
 // arguably, glass_joe would have been more appropriate
 
 export default State.extend({
-  extraProperties: 'allow'
+  extraProperties: 'allow',
+
+  faviconUrl () {
+    if (this.favicon) {
+      return this.favicon.url;
+    }
+  }
 });
 

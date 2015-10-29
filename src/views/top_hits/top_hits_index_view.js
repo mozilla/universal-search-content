@@ -21,12 +21,16 @@ export default BaseView.extend({
     this.removeSubviews();
 
     // TODO: replace this with proper top hits dispatching
-    this.renderCollection(new ActivityResults([this.adapter.results.at(0)]), ActivityItemView, '.top-hits-results');
+    this.renderCollection(this.wrapTopResult(this.adapter.results, ActivityResults), ActivityItemView, '.top-hits-results');
 
     // TODO: obviously this is insane. mix result types properly
-    this.renderCollection(new LilMacResults([this.lilmac.results.at(0)]), ActivityItemView, '.lil-mac-results');
+    this.renderCollection(this.wrapTopResult(this.lilmac.results, LilMacResults), ActivityItemView, '.lil-mac-results');
 
     // if there are results then show otherwise hide
     (this.adapter.results.length || this.lilmac.results.length) ? this.show() : this.hide(); // eslint-disable-line no-unused-expressions
+  },
+
+  wrapTopResult (results, CollectionType) {
+    return results.length ? new CollectionType([results.at(0)]) : new CollectionType();
   }
 });
