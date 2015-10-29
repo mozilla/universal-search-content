@@ -13,13 +13,13 @@ class LilMacAdapter {
   search(term) {
     // XXX Override the search endpoint by setting window.app.searchUrl in a
     //     debugger window :-)
-    const searchUrl = window.app.searchUrl || 'https://little-machine.herokuapp.com/search/autocomplete.json?q=';
+    const searchUrl = window.app.searchUrl || 'https://tiny-machine.herokuapp.com/search.json?q=';
     const url = searchUrl + encodeURI(term);
     const xhr = new XMLHttpRequest();
 
     xhr.open('GET', url, true);
     xhr.onload = () => {
-      if (xhr.readyState === 4 && xhr.status === 200) {
+      if (xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 202)) {
         let results = [];
         try {
           results = JSON.parse(xhr.response);
