@@ -32,5 +32,17 @@ export default AmpersandView.extend({
 
   hide () {
     dom.hide(this.el);
+  },
+
+  sliceCollection (collection, CollectionType, start, n) {
+    if (!collection.length) {
+      return new CollectionType();
+    }
+    if (n === 1) {
+      return new CollectionType([collection.at(start)]);
+    }
+    return new CollectionType(collection.filter(function (item, itemIndex) {
+      return (itemIndex >= start) && (itemIndex < (start + n));
+    }));
   }
 });

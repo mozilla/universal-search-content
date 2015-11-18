@@ -9,14 +9,13 @@ export default BaseView.extend({
 
   initialize () {
     this.adapter = activityResultsAdapter;
-
     this.listenTo(this.adapter.results, 'reset', this.render);
   },
 
   afterRender () {
     this.removeSubviews();
-    let items = this.sliceCollection(this.adapter.results, ActivityResultsCollection, 1, 3);
-    this.renderCollection(items, ActivityItemView, '.activity-results');
+    let items = this.sliceCollection(this.adapter.results, ActivityResultsCollection, 0, 1);
+    this.renderCollection(items, ActivityItemView, '.top-activity-results');
 
     // if there are results then show otherwise hide
     this.adapter.results.length ? this.show() : this.hide(); // eslint-disable-line no-unused-expressions
