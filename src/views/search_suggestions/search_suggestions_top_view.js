@@ -1,11 +1,11 @@
 import BaseView from '../base_view';
-import SearchSuggestionsIndexTemplate from '../../templates/search_suggestions/index.html';
+import SearchSuggestionsTopTemplate from '../../templates/search_suggestions/top.html';
 import SearchSuggestionsCollection from '../../collections/search_suggestions';
 import SearchSuggestionsItemView from './search_suggestions_item_view';
 import searchSuggestionsAdapter from '../../adapters/search_suggestions_adapter';
 
 export default BaseView.extend({
-  template: SearchSuggestionsIndexTemplate,
+  template: SearchSuggestionsTopTemplate,
 
   initialize () {
     this.adapter = searchSuggestionsAdapter;
@@ -14,10 +14,7 @@ export default BaseView.extend({
 
   afterRender () {
     this.removeSubviews();
-    console.log('adapter', this.adapter);
-    let items = this.sliceCollection(this.adapter.combinedSuggestions,
-                                     SearchSuggestionsCollection, 1, 3);
-    this.renderCollection(items, SearchSuggestionsItemView,
-                          '.combined-search-suggestions');
-  }
+    let items = this.sliceCollection(this.adapter.combinedSuggestions, SearchSuggestionsCollection, 0, 1);
+    this.renderCollection(items, SearchSuggestionsItemView, '.top-search-suggestion');
+  },
 });

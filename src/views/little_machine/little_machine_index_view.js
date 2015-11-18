@@ -14,13 +14,12 @@ export default BaseView.extend({
 
   afterRender () {
     this.removeSubviews();
-    this.renderCollection(this.wrapTopResult(this.little_machine.results, LittleMachineResults), LittleMachineItemView, '.little-machine-results');
+    let items = this.sliceCollection(this.little_machine.results,
+                                     LittleMachineResults, 0, 1);
+    this.renderCollection(items, LittleMachineItemView,
+                          '.little-machine-results');
 
     // if there are results then show otherwise hide
     this.little_machine.results.length ? this.show() : this.hide(); // eslint-disable-line no-unused-expressions
-  },
-
-  wrapTopResult (results, CollectionType) {
-    return results.length ? new CollectionType([results.at(0)]) : new CollectionType();
   }
 });
