@@ -1,10 +1,10 @@
 import debounce from 'lodash.debounce';
 import webChannel from '../lib/web_channel';
-import LilMacResults from '../collections/lil_mac_results';
+import LittleMachineResults from '../collections/little_machine_results';
 
-class LilMacAdapter {
+class LittleMachineAdapter {
   constructor () {
-    this.results = new LilMacResults();
+    this.results = new LittleMachineResults();
     webChannel.on('printable-key', debounce((data) => {
       this.search(data.query);
     }, 150));
@@ -33,4 +33,4 @@ class LilMacAdapter {
 }
 
 // export singleton
-export default new LilMacAdapter();
+export default new LittleMachineAdapter();

@@ -1,4 +1,5 @@
 import BaseView from './base_view';
+import LittleMachineIndexView from './little_machine/little_machine_index_view';
 import TopHitsIndexView from './top_hits/top_hits_index_view';
 import SearchSuggestionsIndexView from './search_suggestions/search_suggestions_index_view';
 import ActivityIndexView from './activity/activity_index_view';
@@ -20,6 +21,7 @@ export default BaseView.extend({
 
   afterRender () {
     this.renderSubview(new TopHitsIndexView());
+    this.renderSubview(new LittleMachineIndexView());
     this.renderSubview(new SearchSuggestionsIndexView());
     this.renderSubview(new ActivityIndexView());
   },
