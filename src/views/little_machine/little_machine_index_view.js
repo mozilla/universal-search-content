@@ -8,18 +8,18 @@ export default BaseView.extend({
   template: LittleMachineIndexTemplate,
 
   initialize () {
-    this.little_machine = LittleMachineAdapter;
-    this.listenTo(this.little_machine.results, 'reset', this.render);
+    this.littleMachine = LittleMachineAdapter;
+    this.listenTo(this.littleMachine.results, 'reset', this.render);
   },
 
   afterRender () {
     this.removeSubviews();
-    let items = this.sliceCollection(this.little_machine.results,
+    let items = this.sliceCollection(this.littleMachine.results,
                                      LittleMachineResults, 0, 1);
     this.renderCollection(items, LittleMachineItemView,
                           '.little-machine-results');
 
     // if there are results then show otherwise hide
-    this.little_machine.results.length ? this.show() : this.hide(); // eslint-disable-line no-unused-expressions
+    this.littleMachine.results.length ? this.show() : this.hide(); // eslint-disable-line no-unused-expressions
   }
 });
