@@ -28,26 +28,7 @@ body {
   padding: 0;
 }
 
-.result-region {
-  border-bottom: 1px solid $border-grey;
-  margin: 8px 0 0 0s;
-  padding: 8px 12px;
-
-  &:last-child {
-    border-bottom: none;
-    margin-bottom: 8px;
-  }
-
-  .result-group-title {
-    color: $black;
-    font-weight: bold;
-    line-height: 22px;
-    margin: 0 0 4px 0;
-
-    span {
-      font-weight: bold;
-    }
-  }
+.index {
 
   ol {
     list-style: none;
