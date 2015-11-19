@@ -1,12 +1,11 @@
-<li class="activity-item result">
-  <span class="icon icon-{{model.type}}"></span>
+<li class="result {{model.type}} {{model.mozAction}}">
+  <span class="icon type"></span>
   <img class="icon favicon" src="{{model.faviconUrl}}">
-  <span class="result-copy">
+  <span class="segment title">
     {{#model.title}}
-      {{{model.title}}} &mdash;
+      {{{model.title}}}
     {{/model.title}}
-    <span class="result-url">
-      {{model.url}}
-    </span>
   </span>
+  <span class="segment action">Switch to Tab</span>
+  <span class="segment url">{{model.url}}</span>
 </li>

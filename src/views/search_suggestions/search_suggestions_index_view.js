@@ -14,7 +14,6 @@ export default BaseView.extend({
 
   afterRender () {
     this.removeSubviews();
-    console.log('adapter', this.adapter);
     let items = this.sliceCollection(this.adapter.combinedSuggestions,
                                      SearchSuggestionsCollection, 1, 3);
     this.renderCollection(items, SearchSuggestionsItemView,

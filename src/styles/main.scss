@@ -1,134 +1,256 @@
 @import '../../node_modules/node-normalize-scss/normalize';
 
-$title-grey: #999999;
-$white: #ffffff;
-$border-grey: #f0f0f0;
-$black: #000000;
-$url-blue: #0394dd;
+$color--black: #000;
+$color--blue: #1ba4ef;
+$color--green: #18a46f;
+$color--dark-grey: #666;
+$color--grey: #b5b5b5;
+$color--light-grey: #f5f5f5;
+$color--white: #fff;
+$icon--dimensions: 16px;
+$preview--dimensions: 64px;
+$preview--spacing: 6px;
+$result--spacing: 3px;
+$transition--easing: ease;
+$transition--time: 66ms;
 
-$icon-unit: 16px;
+
+@mixin ellipsis($min-width: 0) {
+  // If an item would wrap, instead prevent that wrapping, truncate the
+  // content, and add a trailing ellipsis. Optionally include a min-width to
+  // ensure that some portion of the content is always shown.
+  min-width: $min-width;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+  white-space: nowrap;
+}
+
 
 html {
   box-sizing: border-box;
+  font-size: 13px;
+  font-weight: normal;
 }
+
 
 *, *:before, *:after {
   box-sizing: inherit;
-  font-size: 13px;
-  font-weight: normal;
   -moz-user-select: none;
   user-select: none;
 }
 
+
 body {
-  background: $white;
+  background: $color--white;
   font-family: message-box, sans-serif;
   margin: 0;
   overflow: hidden;
+  padding: 5px;
+}
+
+
+ol {
+  list-style: none;
+  margin: 0 0 $result--spacing;
   padding: 0;
-}
 
-.index {
-
-  ol {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .result {
-    align-items: center;
-    border-radius: 2px;
-    cursor: pointer;
-    display: flex;
-    margin: 0 -4px;
-    padding: 4px;
-
-    >span[class^="result-"] {
-      overflow-x: hidden;
-      text-overflow: ellipsis;
-      text-wrap: nowrap;
-      white-space: nowrap;
-    }
-
-    .result-copy {
-      position: relative;
-      top: 1px;
-    }
-
-    .result-url  {
-      color: $url-blue;
-    }
-
-    &:hover {
-      background: $border-grey;
-    }
-
-    &.selected {
-      background: $url-blue;
-
-      .result-copy {
-        color: $white;
-      }
-
-      .result-url {
-        color: $white;
-        overflow-x: hidden;
-      }
-
-      .icon-search-remote {
-        background-position: 0 (-1 * $icon-unit);
-      }
-
-      .icon-bookmark {
-        background-position: (-1 * $icon-unit) (-1 * $icon-unit);
-      }
-
-      .icon-search-local {
-        background-position: (-2 * $icon-unit) (-1 * $icon-unit);
-      }
-    }
+  &:last-child {
+    margin-bottom: 0;
   }
 }
+
+
+.result {
+  align-items: center;
+  border: solid 1px transparent;
+  border-radius: 3px;
+  cursor: pointer;
+  display: flex;
+  font-size: 14px;
+  font-weight: 400;
+  margin: 0 0 $result--spacing;
+  padding: 6px 16px;
+  transition: background-color $transition--time $transition--easing,
+              border-color $transition--time $transition--easing,
+              color ($transition--time / 2) $transition--easing;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &:hover {
+    background: $color--light-grey;
+    border-color: darken($color--light-grey, 3%);
+  }
+
+  &.selected {
+    background: $color--blue;
+    border-color: darken($color--blue, 3%);
+  }
+}
+
+
+.segment {
+  display: none;
+
+  .selected & {
+    color: $color--white;
+
+    &.title,
+    &.action,
+    &.url,
+    &.recommended .segment,
+    + .segment:before{
+      color: $color--white;
+    }
+  }
+
+  // Add an emdash between adjacent segments.
+  + .segment:before {
+    color: $color--grey;
+    content: '\2014';
+    margin: 0 5px;
+  }
+
+  &.title {
+    @include ellipsis();
+  }
+
+  &.url {
+    @include ellipsis(30%);
+    color: $color--blue;
+  }
+
+  &.action {
+    @include ellipsis();
+    color: $color--green;
+  }
+
+  &.recommended {
+    flex-direction: column;
+    min-height: $preview--dimensions;
+    padding-left: ($preview--dimensions + $preview--spacing);
+    position: relative;
+
+    .segment {
+      display: block;
+      margin: 0;
+
+      + .segment:before {
+        display: none;
+      }
+    }
+
+    .image {
+      border-radius: 5px;
+      box-shadow: 0 0 1px rgba($color--black, 0.25) inset;
+      left: 0;
+      line-height: 0;
+      overflow: hidden;
+      position: absolute;
+      top: 0;
+
+      img {
+        height: $preview--dimensions;
+        position: relative;
+        width: $preview--dimensions;
+        z-index: -1;
+      }
+
+      .result:hover &,
+      .result.selected & {
+        background: $color--white;
+
+        img {
+          z-index: 1;
+        }
+      }
+    }
+
+    .title {
+      color: $color--black;
+      font-size: 14px;
+    }
+
+    .abstract,
+    .url {
+      color: $color--dark-grey;
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    .url {
+      color: $color--blue;
+    }
+  }
+}
+
+
+// By default, segments are hidden. Mark them to be displayed here using a
+// combination of result type and segment type.
+.result.other .segment.title,
+.result.other .segment.url,
+.result.recommended .segment.recommended,
+.result.search .segment.title,
+.result.switchtab .segment.action,
+.result.switchtab .segment.title {
+  display: block;
+}
+
 
 .icon {
+  background-repeat: no-repeat;
+  background-size: $icon--dimensions;
   display: block;
-  flex: 0 0 $icon-unit;
-  height: $icon-unit;
+  flex: 0 0 $icon--dimensions;
+  height: $icon--dimensions;
   margin-right: 6px;
   position: relative;
+
+  &.type {
+    .result.switchtab & {
+      background-image: url(../images/icons/tab.svg);
+    }
+    .result.switchtab.selected & {
+      background-image: url(../images/icons/tab-selected.svg);
+    }
+
+    .bookmark & {
+      background-image: url(../images/icons/bookmark.svg);
+    }
+    .bookmark.selected & {
+      background-image: url(../images/icons/bookmark-selected.svg);
+    }
+
+    .result.recommended & {
+      align-self: flex-start;
+      background-image: url(../images/icons/recommendation.svg);
+      margin-top: 2px;
+    }
+    .result.recommended.selected & {
+      background-image: url(../images/icons/recommendation-selected.svg);
+    }
+  }
+
+  &.preview {
+    .search & {
+      background-image: url(../images/icons/search.svg);
+    }
+    .search.selected & {
+      background-image: url(../images/icons/search-selected.svg);
+    }
+  }
 }
 
-.icon-search-remote,
-.icon-search-local,
-.icon-bookmark {
-  background: url(../images/search-sprite@2x.png) no-repeat;
-  background-size: (3 * $icon-unit) (2 * $icon-unit);
-}
-
-.icon-bookmark {
-  background-position: (-1 * $icon-unit) 0;
-  position: relative;
-  top: -1px;
-}
-
-.icon-search-local {
-  background-position: (-2 * $icon-unit) 0;
-}
-
-//hide the content preview for now
-
-#content-preview {
-  display: none;
-}
 
 .debugger-index {
-  background: #eee;
-  border-bottom: 1px solid #ccc;
+  background: $color--light-grey;
+  border-bottom: 1px solid $color--grey;
   overflow: auto;
 
   h2 {
-    color: #555;
+    color: $color--dark-grey;
     float: left;
     font-weight: bold;
     padding: 0 10px;
@@ -139,13 +261,13 @@ body {
     margin-top: 5px;
 
     button {
-      background: #fff;
-      border: 1px solid #ccc;
+      background: $color--white;
+      border: 1px solid $color--grey;
       border-radius: 3px;
       padding: 4px 6px;
 
       &:active {
-        background: #ddd;
+        background: lighten($color--grey, 10%);
       }
     }
   }

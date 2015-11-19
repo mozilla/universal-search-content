@@ -1,9 +1,9 @@
 import BaseView from '../base_view';
-import ActivityItemView from '../../templates/activity/item.html';
+import RecommendedItemView from '../../templates/recommended/item.html';
 import webChannel from '../../lib/web_channel';
 
 export default BaseView.extend({
-  template: ActivityItemView,
+  template: RecommendedItemView,
 
   events: {
     'mousedown': 'openUrl',
