@@ -1,10 +1,10 @@
 import debounce from 'lodash.debounce';
 import webChannel from '../lib/web_channel';
-import LittleMachineResults from '../collections/little_machine_results';
+import RecommendedResults from '../collections/recommended_results';
 
-class LittleMachineAdapter {
+class RecommendedAdapter {
   constructor () {
-    this.results = new LittleMachineResults();
+    this.results = new RecommendedResults();
     webChannel.on('printable-key', debounce((data) => {
       this.search(data.query);
     }, 150));
@@ -33,4 +33,4 @@ class LittleMachineAdapter {
 }
 
 // export singleton
-export default new LittleMachineAdapter();
+export default new RecommendedAdapter();

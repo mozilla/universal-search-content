@@ -21,7 +21,7 @@ module.exports = {
       },
       { test: /\.html$/, loader: 'mustache' },
       { test: /\.scss$/, loader: 'style!css!sass?sourceMap' },
-      { test: /\.png$/, loader: 'url-loader?limit=100000' }
+      { test: /\.(png|svg)$/, loader: 'url-loader?limit=100000' }
     ]
   },
   devServer: {
