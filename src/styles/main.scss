@@ -69,6 +69,7 @@ ol {
   display: flex;
   font-size: 14px;
   font-weight: 400;
+  justify-content: flex-start;
   margin: 0 0 $result--spacing;
   padding: 6px 16px;
   transition: background-color $transition--time $transition--easing,
@@ -87,6 +88,10 @@ ol {
   &.selected {
     background: $color--blue;
     border-color: darken($color--blue, 3%);
+  }
+
+  &.recommended {
+    align-items: flex-start;
   }
 }
 
@@ -127,11 +132,39 @@ ol {
     color: $color--green;
   }
 
+  &.image {
+    border-radius: 5px;
+    box-shadow: 0 0 1px rgba($color--black, 0.25) inset;
+    display: inline-block;
+    line-height: 0;
+    margin: 0 $preview--spacing 0 0;
+    max-height: $preview--dimensions;
+    overflow: hidden;
+    width: $preview--dimensions;
+
+    img {
+      max-width: $preview--dimensions;
+      position: relative;
+      z-index: -1;
+    }
+
+    .result:hover &,
+    .result.selected & {
+      background: $color--white;
+
+      img {
+        z-index: 1;
+      }
+    }
+  }
+
   &.recommended {
     flex-direction: column;
-    min-height: $preview--dimensions;
-    padding-left: ($preview--dimensions + $preview--spacing);
     position: relative;
+
+    &:before {
+      display: none;
+    }
 
     .segment {
       display: block;
@@ -139,32 +172,6 @@ ol {
 
       + .segment:before {
         display: none;
-      }
-    }
-
-    .image {
-      border-radius: 5px;
-      box-shadow: 0 0 1px rgba($color--black, 0.25) inset;
-      left: 0;
-      line-height: 0;
-      overflow: hidden;
-      position: absolute;
-      top: 0;
-
-      img {
-        height: $preview--dimensions;
-        position: relative;
-        width: $preview--dimensions;
-        z-index: -1;
-      }
-
-      .result:hover &,
-      .result.selected & {
-        background: $color--white;
-
-        img {
-          z-index: 1;
-        }
       }
     }
 
@@ -224,7 +231,6 @@ ol {
     }
 
     .result.recommended & {
-      align-self: flex-start;
       background-image: url(../images/icons/recommendation.svg);
       margin-top: 2px;
     }
