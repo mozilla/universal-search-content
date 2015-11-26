@@ -44,7 +44,7 @@ class WebChannel {
     }
 
     const message = e.detail.message;
-    if (message && message.data) {
+    if (message && message.type) {
       this.trigger(message.type, message.data);
     }
   }
