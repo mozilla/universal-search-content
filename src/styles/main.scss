@@ -224,6 +224,10 @@ ol {
     background-color: transparent;
   }
 
+  .selected & {
+    background-color: $color--white;
+  }
+
   &.type {
     .result.favicon:not(.switchtab) & {
       background-color: transparent;
