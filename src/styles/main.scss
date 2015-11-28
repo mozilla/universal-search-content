@@ -17,11 +17,11 @@ $transition--easing: ease;
 $transition--time: 66ms;
 
 
-@mixin ellipsis($min-width: 0) {
+@mixin ellipsis($max-width: 100%) {
   // If an item would wrap, instead prevent that wrapping, truncate the
-  // content, and add a trailing ellipsis. Optionally include a min-width to
-  // ensure that some portion of the content is always shown.
-  min-width: $min-width;
+  // content, and add a trailing ellipsis. Optionally include a max-width at
+  // which the ellipsis is forced.
+  max-width: $max-width;
   overflow-x: hidden;
   text-overflow: ellipsis;
   text-wrap: nowrap;
@@ -53,9 +53,15 @@ body {
 
 
 ol {
+  border-top: solid 1px $color--light-grey;
   list-style: none;
   margin: 0 0 $result--spacing;
-  padding: 0;
+  padding: $result--spacing 0 0;
+
+  &:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
 
   &:last-child {
     margin-bottom: 0;
@@ -98,6 +104,31 @@ ol {
 }
 
 
+.segments {
+  display: flex;
+  flex-wrap: wrap;
+  line-height: 1.25;
+
+  .recommended & {
+    line-height: 1.35;
+    position: relative;
+
+    &:before {
+      display: none;
+    }
+
+    .segment {
+      margin: 0;
+      width: 100%;
+
+      + .segment:before {
+        display: none;
+      }
+    }
+  }
+}
+
+
 .segment {
   display: none;
 
@@ -107,7 +138,7 @@ ol {
     &.title,
     &.action,
     &.url,
-    &.recommended .segment,
+    &.abstract,
     + .segment:before{
       color: $color--white;
     }
@@ -121,23 +152,38 @@ ol {
   }
 
   &.title {
-    @include ellipsis();
+    @include ellipsis(70%);
+
+    .recommended & {
+      max-width: 100%;
+    }
   }
 
   &.url {
-    @include ellipsis(30%);
     color: $color--blue;
+    font-size: 12px;
+    width: 100%;
+
+    &:before {
+      display: none;
+    }
   }
 
   &.action {
-    @include ellipsis();
+    @include ellipsis(30%);
     color: $color--green;
+  }
+
+  &.abstract{
+    color: $color--dark-grey;
+    font-size: 13px;
   }
 
   &.image {
     border-radius: 5px;
     box-shadow: 0 0 1px rgba($color--black, 0.25) inset;
     display: inline-block;
+    flex-shrink: 0;
     line-height: 0;
     margin: 0 $preview--spacing 0 0;
     max-height: $preview--dimensions;
@@ -145,8 +191,8 @@ ol {
     width: $preview--dimensions;
 
     img {
-      max-width: $preview--dimensions;
       position: relative;
+      width: $preview--dimensions;
       z-index: -1;
     }
 
@@ -159,40 +205,6 @@ ol {
       }
     }
   }
-
-  &.recommended {
-    flex-direction: column;
-    position: relative;
-
-    &:before {
-      display: none;
-    }
-
-    .segment {
-      display: block;
-      margin: 0;
-
-      + .segment:before {
-        display: none;
-      }
-    }
-
-    .title {
-      color: $color--black;
-      font-size: 14px;
-    }
-
-    .abstract,
-    .url {
-      color: $color--dark-grey;
-      font-size: 13px;
-      margin-top: 4px;
-    }
-
-    .url {
-      color: $color--blue;
-    }
-  }
 }
 
 
@@ -200,10 +212,13 @@ ol {
 // combination of result type and segment type.
 .result.other .segment.title,
 .result.other .segment.url,
-.result.recommended .segment.recommended,
+.result.recommended .segment.title,
+.result.recommended .segment.abstract,
+.result.recommended .segment.url,
 .result.search .segment.title,
 .result.switchtab .segment.action,
-.result.switchtab .segment.title {
+.result.switchtab .segment.title,
+.result.switchtab .segment.url {
   display: block;
 }
 
@@ -247,6 +262,11 @@ ol {
       clip-path: url(#recommended);
       margin-top: 2px;
     }
+  }
+
+  &.type {
+    align-self: flex-start;
+    margin-top: 2px;
   }
 
   &.favicon {

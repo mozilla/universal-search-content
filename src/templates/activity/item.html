@@ -3,11 +3,13 @@
   <span class="icon favicon">
     <img src="{{model.faviconUrl}}">
   </span>
-  <span class="segment title">
-    {{#model.title}}
-      {{{model.title}}}
-    {{/model.title}}
-  </span>
-  <span class="segment action">Switch to Tab</span>
-  <span class="segment url">{{model.url}}</span>
+  <div class="segments">
+    <span class="segment title">
+      {{#model.title}}
+        {{{model.title}}}
+      {{/model.title}}
+    </span>
+    <span class="segment action">Switch to Tab</span>
+    <span class="segment url">{{model.url}}</span>
+  </div>
 </li>
