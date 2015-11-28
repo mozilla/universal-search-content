@@ -7,6 +7,8 @@ $color--dark-grey: #666;
 $color--grey: #b5b5b5;
 $color--light-grey: #f5f5f5;
 $color--white: #fff;
+$favicon--dimensions: 32px;
+$favicon--img-dimensions: 16px;
 $icon--dimensions: 16px;
 $preview--dimensions: 64px;
 $preview--spacing: 6px;
@@ -245,6 +247,14 @@ ol {
       clip-path: url(#recommended);
       margin-top: 2px;
     }
+  }
+
+  &.favicon {
+    background: $color--light-grey;
+    border-radius: 5px;
+    flex: 0 0 $favicon--dimensions;
+    height: $favicon--dimensions;
+    width: $favicon--dimensions;
   }
 
   &.preview {

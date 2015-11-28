@@ -1,6 +1,8 @@
 <li class="result {{model.type}} {{model.mozAction}}">
   <span class="icon type"></span>
-  <img class="icon favicon" src="{{model.faviconUrl}}">
+  <span class="icon favicon">
+    <img src="{{model.faviconUrl}}">
+  </span>
   <span class="segment title">
     {{#model.title}}
       {{{model.title}}}
