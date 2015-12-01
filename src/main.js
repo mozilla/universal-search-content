@@ -1,6 +1,7 @@
 import app from 'ampersand-app';
 import IndexView from './views/index_view';
 import DebuggerIndexView from './views/debugger/debugger_index_view';
+import initializeImageLoadListener from './lib/image_colors';
 import './styles/main.scss';
 import webChannelEventRecorder from './lib/web_channel_event_recorder';
 
@@ -8,6 +9,7 @@ app.extend({
   initialize () {
     this.renderIndexView();
     this.initializeWebChannelEventRecorder();
+    this.initializeImageLoadListener();
   },
 
   renderIndexView () {
@@ -29,6 +31,10 @@ app.extend({
     this.debuggerIndexView = new DebuggerIndexView();
 
     document.body.insertBefore(this.debuggerIndexView.render().el, document.body.firstChild);
+  },
+
+  initializeImageLoadListener () {
+    initializeImageLoadListener();
   }
 });
 

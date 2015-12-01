@@ -279,9 +279,11 @@ ol {
     width: $favicon--dimensions;
 
     img {
+      height: 16px;
       left: 0;
       position: absolute;
       top: 0;
+      width: 16px;
     }
   }
 
