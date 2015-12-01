@@ -207,44 +207,49 @@ ol {
 
 
 .icon {
-  background-repeat: no-repeat;
+  background: $color--grey no-repeat;
   background-size: $icon--dimensions;
   display: block;
   flex: 0 0 $icon--dimensions;
   height: $icon--dimensions;
   margin-right: 6px;
   position: relative;
+  transition: background-color $transition--time $transition--easing;
+
+  .selected & {
+    background-color: $color--white;
+  }
+
+  &.favicon {
+    background-color: transparent;
+  }
+
+  .selected & {
+    background-color: $color--white;
+  }
 
   &.type {
+    .result.favicon:not(.switchtab) & {
+      background-color: transparent;
+    }
+    .result.bookmark & {
+      clip-path: url(#bookmark);
+    }
     .result.switchtab & {
-      background-image: url(../images/icons/tab.svg);
+      clip-path: url(#switchtab);
     }
-    .result.switchtab.selected & {
-      background-image: url(../images/icons/tab-selected.svg);
+    .result.search & {
+      background-color: transparent;
     }
-
-    .bookmark & {
-      background-image: url(../images/icons/bookmark.svg);
-    }
-    .bookmark.selected & {
-      background-image: url(../images/icons/bookmark-selected.svg);
-    }
-
     .result.recommended & {
-      background-image: url(../images/icons/recommendation.svg);
+      clip-path: url(#recommended);
       margin-top: 2px;
-    }
-    .result.recommended.selected & {
-      background-image: url(../images/icons/recommendation-selected.svg);
     }
   }
 
   &.preview {
     .search & {
-      background-image: url(../images/icons/search.svg);
-    }
-    .search.selected & {
-      background-image: url(../images/icons/search-selected.svg);
+      clip-path: url(#search);
     }
   }
 }
