@@ -37,6 +37,12 @@ class WebChannel {
     });
   }
 
+  sendAdjustHeight (newHeight) {
+    this.sendMessage('adjust-height', {
+      height: newHeight
+    });
+  }
+
   _messageReceived (e) {
     const newChannelId = e.detail.id;
     if (this.channelId !== newChannelId) {
