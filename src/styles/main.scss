@@ -216,9 +216,11 @@ ol {
 .result.recommended .segment.abstract,
 .result.recommended .segment.url,
 .result.search .segment.title,
-.result.switchtab .segment.action,
-.result.switchtab .segment.title,
-.result.switchtab .segment.url {
+.result.action .segment.action,
+.result.favicon .segment.title,
+.result.favicon .segment.url,
+.result.action .segment.title,
+.result.action .segment.url {
   display: block;
 }
 
@@ -252,7 +254,7 @@ ol {
     .result.bookmark & {
       clip-path: url(#bookmark);
     }
-    .result.switchtab & {
+    .result.action & {
       clip-path: url(#switchtab);
     }
     .result.search & {
