@@ -180,10 +180,13 @@ ol {
   }
 
   &.image {
+    align-items: center;
     border-radius: 5px;
     box-shadow: 0 0 1px rgba($color--black, 0.25) inset;
-    display: inline-block;
+    display: flex;
     flex-shrink: 0;
+    height: $preview--dimensions;
+    justify-content: center;
     line-height: 0;
     margin: 0 $preview--spacing 0 0;
     max-height: $preview--dimensions;
@@ -191,8 +194,8 @@ ol {
     width: $preview--dimensions;
 
     img {
+      object-fit: contain;
       position: relative;
-      width: $preview--dimensions;
       z-index: -1;
     }
 
@@ -294,6 +297,12 @@ ol {
       clip-path: url(#search);
     }
   }
+}
+
+
+svg {
+  position: absolute;
+  visibility: hidden;
 }
 
 
