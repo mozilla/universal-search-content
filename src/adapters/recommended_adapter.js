@@ -1,3 +1,4 @@
+import app from 'ampersand-app';
 import debounce from 'lodash.debounce';
 import webChannel from '../lib/web_channel';
 import RecommendedResults from '../collections/recommended_results';
@@ -20,7 +21,7 @@ class RecommendedAdapter {
   search(term) {
     // XXX Override the search endpoint by setting window.app.searchUrl in a
     //     debugger window :-)
-    const searchUrl = window.app.searchUrl || 'https://tiny-machine.herokuapp.com/search.json?q=';
+    const searchUrl = app.searchUrl || 'https://tiny-machine.herokuapp.com/search.json?q=';
     const url = searchUrl + encodeURI(term);
     const xhr = new XMLHttpRequest();
 

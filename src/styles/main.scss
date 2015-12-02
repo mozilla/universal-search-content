@@ -48,9 +48,11 @@ body {
   font-family: message-box, sans-serif;
   margin: 0;
   overflow: hidden;
-  padding: 5px;
 }
 
+.index {
+  padding: 5px;
+}
 
 ol {
   border-top: solid 1px $color--light-grey;
@@ -228,6 +230,12 @@ ol {
 }
 
 
+.icons {
+  position: absolute;
+  visibility: hidden;
+}
+
+
 .icon {
   background: $color--grey no-repeat;
   background-size: $icon--dimensions;
@@ -297,12 +305,6 @@ ol {
       clip-path: url(#search);
     }
   }
-}
-
-
-svg {
-  position: absolute;
-  visibility: hidden;
 }
 
 

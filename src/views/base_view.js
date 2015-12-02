@@ -3,8 +3,6 @@ import dom from 'ampersand-dom';
 import flatten from 'lodash/array/flatten';
 import invoke from 'lodash/collection/invoke';
 
-import webChannel from '../lib/web_channel';
-
 export default AmpersandView.extend({
   render () {
     this.beforeRender();
@@ -12,7 +10,6 @@ export default AmpersandView.extend({
     AmpersandView.prototype.render.apply(this, arguments);
 
     this.afterRender();
-    setTimeout(this.adjustHeight, 0);
   },
 
   // implement in submodules
@@ -35,11 +32,6 @@ export default AmpersandView.extend({
 
   hide () {
     dom.hide(this.el);
-  },
-
-  // Adjust the height of the iframe to match the height of the body.
-  adjustHeight () {
-    webChannel.sendAdjustHeight(document.body.offsetHeight);
   },
 
   sliceCollection (collection, CollectionType, start, n) {

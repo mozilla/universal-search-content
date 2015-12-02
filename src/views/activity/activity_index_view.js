@@ -1,3 +1,4 @@
+import app from 'ampersand-app';
 import BaseView from '../base_view';
 import ActivityIndexTemplate from '../../templates/activity/index.html';
 import ActivityItemView from './activity_item_view';
@@ -19,6 +20,8 @@ export default BaseView.extend({
     this.renderCollection(items, ActivityItemView, '.activity-results');
 
     // if there are results then show otherwise hide
-    this.adapter.results.length ? this.show() : this.hide(); // eslint-disable-line no-unused-expressions
+    items.length ? this.show() : this.hide(); // eslint-disable-line no-unused-expressions
+
+    app.trigger('needs-resized');
   }
 });
