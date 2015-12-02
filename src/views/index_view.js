@@ -1,3 +1,4 @@
+import app from 'ampersand-app';
 import BaseView from './base_view';
 import IconView from './icon_view';
 import RecommendedIndexView from './recommended/recommended_index_view';
@@ -6,6 +7,7 @@ import SearchSuggestionsIndexView from './search_suggestions/search_suggestions_
 import ActivityIndexView from './activity/activity_index_view';
 import IndexTemplate from '../templates/index.html';
 import webChannel from '../lib/web_channel';
+import debounce from 'lodash.debounce';
 import dom from 'ampersand-dom';
 
 export default BaseView.extend({
@@ -18,6 +20,9 @@ export default BaseView.extend({
   initialize () {
     // listen for chrome key events
     this.listenTo(webChannel, 'navigational-key', this.dispatchKeypress);
+    app.on('needs-resized', debounce(() => {
+      this.adjustHeight();
+    }, 25));
   },
 
   afterRender () {
@@ -101,5 +106,10 @@ export default BaseView.extend({
     // add selected class to newly selected element and trigger our custom selection event
     dom.addClass(newlySelected, 'selected');
     newlySelected.dispatchEvent(new CustomEvent('select'));
+  },
+
+  // Adjust the height of the iframe to match the height of the body.
+  adjustHeight () {
+    webChannel.sendAdjustHeight(this.el.offsetHeight);
   }
 });

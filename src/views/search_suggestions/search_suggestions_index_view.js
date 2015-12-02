@@ -1,3 +1,4 @@
+import app from 'ampersand-app';
 import BaseView from '../base_view';
 import SearchSuggestionsIndexTemplate from '../../templates/search_suggestions/index.html';
 import SearchSuggestionsCollection from '../../collections/search_suggestions';
@@ -18,5 +19,7 @@ export default BaseView.extend({
                                      SearchSuggestionsCollection, 1, 3);
     this.renderCollection(items, SearchSuggestionsItemView,
                           '.combined-search-suggestions');
+
+    app.trigger('needs-resized');
   }
 });

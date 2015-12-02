@@ -1,3 +1,4 @@
+import app from 'ampersand-app';
 import BaseView from '../base_view';
 import SearchSuggestionsTopTemplate from '../../templates/search_suggestions/top.html';
 import SearchSuggestionsCollection from '../../collections/search_suggestions';
@@ -16,5 +17,6 @@ export default BaseView.extend({
     this.removeSubviews();
     let items = this.sliceCollection(this.adapter.combinedSuggestions, SearchSuggestionsCollection, 0, 1);
     this.renderCollection(items, SearchSuggestionsItemView, '.top-search-suggestion');
+    app.trigger('needs-resized');
   }
 });
