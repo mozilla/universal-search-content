@@ -1,6 +1,9 @@
 import app from 'ampersand-app';
 import BaseView from './base_view';
 import IconView from './icon_view';
+import activityResultsAdapter from '../adapters/activity_results_adapter';
+import recommendedAdapter from '../adapters/recommended_adapter';
+import searchSuggestionsAdapter from '../adapters/search_suggestions_adapter';
 import RecommendedIndexView from './recommended/recommended_index_view';
 import TopSearchSuggestionView from './search_suggestions/search_suggestions_top_view';
 import SearchSuggestionsIndexView from './search_suggestions/search_suggestions_index_view';
@@ -23,6 +26,7 @@ export default BaseView.extend({
     app.on('needs-resized', throttle(() => {
       this.adjustHeight();
     }, 25));
+    webChannel.on('popupclose', this.resetAdapters);
   },
 
   afterRender () {
@@ -111,5 +115,19 @@ export default BaseView.extend({
   // Adjust the height of the iframe to match the height of the body.
   adjustHeight () {
     webChannel.sendAdjustHeight(this.el.offsetHeight);
+  },
+
+  // Clear results of each of our adapters.
+  resetAdapters () {
+    let adapters = [
+      activityResultsAdapter.results,
+      recommendedAdapter.results,
+      searchSuggestionsAdapter.localSuggestions,
+      searchSuggestionsAdapter.remoteSuggestions,
+      searchSuggestionsAdapter.combinedSuggestions
+    ];
+    for (let adapter in adapters) {
+      adapters[adapter].reset();
+    }
   }
 });

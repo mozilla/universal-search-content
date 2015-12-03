@@ -9,13 +9,6 @@ class RecommendedAdapter {
     webChannel.on('printable-key', debounce((data) => {
       this.search(data.query);
     }, 150));
-
-    // Clear recommended collection when the popupclose event is sent to
-    // prevent them from being shown when the popup is reopened. See:
-    // https://github.com/mozilla/universal-search-content/issues/79
-    webChannel.on('popupclose', () => {
-      this.results.reset();
-    });
   }
 
   search(term) {
