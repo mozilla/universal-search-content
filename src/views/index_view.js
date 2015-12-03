@@ -7,7 +7,7 @@ import SearchSuggestionsIndexView from './search_suggestions/search_suggestions_
 import ActivityIndexView from './activity/activity_index_view';
 import IndexTemplate from '../templates/index.html';
 import webChannel from '../lib/web_channel';
-import debounce from 'lodash.debounce';
+import throttle from 'lodash.throttle';
 import dom from 'ampersand-dom';
 
 export default BaseView.extend({
@@ -20,7 +20,7 @@ export default BaseView.extend({
   initialize () {
     // listen for chrome key events
     this.listenTo(webChannel, 'navigational-key', this.dispatchKeypress);
-    app.on('needs-resized', debounce(() => {
+    app.on('needs-resized', throttle(() => {
       this.adjustHeight();
     }, 25));
   },
