@@ -1,6 +1,5 @@
-class Favicon {
+export default class Favicon {
   constructor (img) {
-    this.maxTime = 20;  // Maximum calculation time before failing, in ms.
     this.imageData = this.getImageData(img);
     this.dominantColor = null;
     if (this.imageData) {
@@ -16,10 +15,10 @@ class Favicon {
     // image passed to the constructor. getImageData is subject to the same
     // origin policy, so we should gracefully fail if it's an external image.
     let canvas = document.createElement('canvas');
-    let context = canvas.getContext && canvas.getContext('2d');
+    let context = canvas.getContext('2d');
     try {
-      context.drawImage(this.img, 0, 0);
-      return context.getImageData(0, 0, this.img.width, this.img.height).data;
+      context.drawImage(img, 0, 0);
+      return context.getImageData(0, 0, img.width, img.height).data;
     } catch (err) {
       return null;
     }
@@ -69,24 +68,4 @@ class Favicon {
     }
     return 'rgb(' + maxColor + ')';
   }
-}
-
-export default function initializeImageLoadListener() {
-  // Whenever an image whose parent has the class 'favicon' is loaded, set the
-  // parent's background color to the dominant color from the image itself. If
-  // unable to calculate it within maxTime seconds, do nothing.
-  document.body.addEventListener('load', function(evt){
-    const START = new Date().getTime();
-    let img = evt.target;
-    if (img.tagName !== 'IMG') {
-      return;
-    }
-    if (img.parentNode.classList.contains('favicon')) {
-      let favicon = new Favicon(img);
-      const END = new Date().getTime();
-      if (favicon.dominantColor && END - START < this.maxTime) {
-        img.parentNode.style.backgroundColor = favicon.dominantColor;
-      }
-    }
-  }, true);
 }
