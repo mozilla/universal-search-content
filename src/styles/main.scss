@@ -221,10 +221,12 @@ ol {
 .result.recommended .segment.abstract,
 .result.recommended .segment.url,
 .result.search .segment.title,
-.result.action .segment.action,
 .result.favicon .segment.title,
 .result.favicon .segment.url,
+.result.bookmark .segment.title,
+.result.bookmark .segment.url,
 .result.action .segment.title,
+.result.action .segment.action,
 .result.action .segment.url {
   display: block;
 }
