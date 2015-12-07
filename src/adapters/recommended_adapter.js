@@ -7,7 +7,15 @@ class RecommendedAdapter {
   constructor () {
     this.results = new RecommendedResults();
     webChannel.on('printable-key', debounce((data) => {
-      this.search(data.query);
+      // Trim whitespace before performing search; don't attempt to search for
+      // whitespace-only strings; clear results if the current query is only
+      // whitespace.
+      let query = data.query.trim();
+      if (query.length) {
+        this.search(query);
+      } else {
+        this.results.reset();
+      }
     }, 150));
   }
 
