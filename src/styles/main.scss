@@ -172,8 +172,8 @@ ol {
   }
 
   &.action {
-    @include ellipsis(30%);
     color: $color--green;
+    white-space: nowrap;
   }
 
   &.abstract{
