@@ -19,7 +19,7 @@ export default BaseView.extend({
                                      SearchSuggestionsCollection, 1, 3);
     this.renderCollection(items, SearchSuggestionsItemView,
                           '.combined-search-suggestions');
-
+    items.length ? this.show() : this.hide(); // eslint-disable-line no-unused-expressions
     app.trigger('needs-resized');
   }
 });
