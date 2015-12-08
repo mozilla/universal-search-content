@@ -17,6 +17,7 @@ export default BaseView.extend({
     this.removeSubviews();
     let items = this.sliceCollection(this.adapter.combinedSuggestions, SearchSuggestionsCollection, 0, 1);
     this.renderCollection(items, SearchSuggestionsItemView, '.top-search-suggestion');
+    items.length ? this.show() : this.hide(); // eslint-disable-line no-unused-expressions
     app.trigger('needs-resized');
   }
 });
