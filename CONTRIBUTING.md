@@ -1,14 +1,15 @@
 # Contributing
 
 We love pull requests from everyone. By participating in this project, you
-agree to abide by the Mozilla [code of conduct][coc].
+agree to abide by our [code of conduct][coc].
 
 Developer setup steps are covered in the [README][dev setup]. This file explains how our
 dev process works. These are just guidelines; nothing here is intended to be
 rigid or confusing. If you'd like to contribute and don't understand something
 here, reach out on IRC, and we'll be happy to offer solutions.
 
-[coc]: https://www.mozilla.org/en-US/about/governance/policies/participation
+[mozcoc]: https://www.mozilla.org/en-US/about/governance/policies/participation
+[coc]:https://github.com/mozilla/universal-search-content/blob/master/CODE_OF_CONDUCT.md
 [dev setup]: https://github.com/mozilla/universal-search-addon#developer-setup
 
 ### Saying Hello
