@@ -1,9 +1,9 @@
-import ActivityItemView from '../../templates/activity/item.html';
+import ActivityItemTemplate from '../../templates/activity/item.html';
 import Favicon from '../../lib/image_colors';
 import RowItemView from '../row_item_view';
 
 export default RowItemView.extend({
-  template: ActivityItemView,
+  template: ActivityItemTemplate,
 
   events: RowItemView.prototype.events,
 
