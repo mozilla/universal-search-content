@@ -20,13 +20,12 @@ export default BaseView.extend({
     // we have to use mousedown, not click, because of browser bugs.
     // see https://github.com/mozilla/universal-search-addon/issues/20 for more.
     if (event.which === 1) {
-      const prefix = this.model.type === 'action' ? 'moz-action:switchtab,' : '';
-      webChannel.sendAutocompleteClick(prefix + this.model.url, 'url');
+      webChannel.sendAutocompleteClick(this.model.result, this.model.resultType);
     }
   },
 
   sendSelectionDetails (event) {
-    webChannel.sendUrlSelected(this.model.url, 'url');
+    webChannel.sendUrlSelected(this.model.result, this.model.resultType);
   },
 
   injectFavicon () {
@@ -44,7 +43,7 @@ export default BaseView.extend({
       }
     };
     this.icon.onerror = () => { this.hideErroredFavicon(); };
-    this.icon.src = this.model.displayImage();
+    this.icon.src = this.model.displayImage;
     this.iconContainer.appendChild(this.icon);
   },
 

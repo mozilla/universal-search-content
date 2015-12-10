@@ -14,11 +14,11 @@ export default BaseView.extend({
     // we have to use mousedown, not click, because of browser bugs.
     // see https://github.com/mozilla/universal-search-addon/issues/20 for more.
     if (event.which === 1) {
-      webChannel.sendAutocompleteClick(this.model.url, 'url');
+      webChannel.sendAutocompleteClick(this.model.result, this.model.resultType);
     }
   },
 
   sendSelectionDetails (event) {
-    webChannel.sendUrlSelected(this.model.url, 'url');
+    webChannel.sendUrlSelected(this.model.result, this.model.resultType);
   }
 });
