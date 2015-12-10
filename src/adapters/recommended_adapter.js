@@ -1,5 +1,5 @@
 import app from 'ampersand-app';
-import debounce from 'lodash.debounce';
+import {debounce} from 'lodash';
 import webChannel from '../lib/web_channel';
 import RecommendedResults from '../collections/recommended_results';
 

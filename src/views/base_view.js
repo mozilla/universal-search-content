@@ -1,7 +1,6 @@
 import AmpersandView from 'ampersand-view';
 import dom from 'ampersand-dom';
-import flatten from 'lodash/array/flatten';
-import invoke from 'lodash/collection/invoke';
+import {flatten, invoke} from 'lodash';
 
 export default AmpersandView.extend({
   render () {
