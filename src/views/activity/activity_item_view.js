@@ -1,31 +1,15 @@
-import BaseView from '../base_view';
 import ActivityItemView from '../../templates/activity/item.html';
 import Favicon from '../../lib/image_colors';
-import webChannel from '../../lib/web_channel';
+import RowItemView from '../row_item_view';
 
-export default BaseView.extend({
+export default RowItemView.extend({
   template: ActivityItemView,
 
-  events: {
-    'mousedown': 'openUrl',
-    'select': 'sendSelectionDetails'
-  },
+  events: RowItemView.prototype.events,
 
   afterRender () {
     this.iconContainer = this.query('.icon.favicon');
     this.injectFavicon();
-  },
-
-  openUrl (event) {
-    // we have to use mousedown, not click, because of browser bugs.
-    // see https://github.com/mozilla/universal-search-addon/issues/20 for more.
-    if (event.which === 1) {
-      webChannel.sendAutocompleteClick(this.model.result, this.model.resultType);
-    }
-  },
-
-  sendSelectionDetails (event) {
-    webChannel.sendUrlSelected(this.model.result, this.model.resultType);
   },
 
   injectFavicon () {
