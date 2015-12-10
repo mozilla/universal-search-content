@@ -16,10 +16,6 @@ import dom from 'ampersand-dom';
 export default BaseView.extend({
   template: IndexTemplate,
 
-  events: {
-    'mouseenter': 'clearSelection'
-  },
-
   initialize () {
     // listen for chrome key events
     this.listenTo(webChannel, 'navigational-key', this.dispatchKeypress);
@@ -61,14 +57,6 @@ export default BaseView.extend({
     // enter triggers a navigation
     } else if (data.key === 'Enter') {
       this._handleEnter();
-    }
-  },
-
-  clearSelection (e) {
-    let selectedItem = this.query('li.selected');
-
-    if (selectedItem) {
-      dom.removeClass(selectedItem, 'selected');
     }
   },
 
