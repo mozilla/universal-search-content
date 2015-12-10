@@ -1,5 +1,5 @@
 import State from 'ampersand-state';
-import _c from 'lodash/collection';
+import {collect} from 'lodash';
 import SearchSuggestions from '../collections/search_suggestions';
 import SearchSuggestion from '../models/search_suggestion';
 import webChannel from '../lib/web_channel';
@@ -23,10 +23,10 @@ const SearchSuggestionsAdapter = State.extend({
         this.engine = data.engine;
         this.searchTerm = data.results.term;
 
-        this.remoteSuggestions.reset(_c.collect(data.results.remote, function (t) {
+        this.remoteSuggestions.reset(collect(data.results.remote, function (t) {
           return { term: t, type: 'remote' };
         }));
-        this.localSuggestions.reset(_c.collect(data.results.local, function (t) {
+        this.localSuggestions.reset(collect(data.results.local, function (t) {
           return { term: t, type: 'local' };
         }));
 

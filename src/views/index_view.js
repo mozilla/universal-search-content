@@ -10,7 +10,7 @@ import SearchSuggestionsIndexView from './search_suggestions/search_suggestions_
 import ActivityIndexView from './activity/activity_index_view';
 import IndexTemplate from '../templates/index.html';
 import webChannel from '../lib/web_channel';
-import throttle from 'lodash.throttle';
+import {throttle} from 'lodash';
 import dom from 'ampersand-dom';
 
 export default BaseView.extend({
