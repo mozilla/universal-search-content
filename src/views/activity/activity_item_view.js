@@ -34,7 +34,15 @@ export default BaseView.extend({
     // allowing us to handle events directly, since load events don't bubble
     // and cannot be delegated.
     this.icon = new Image('img');
-    this.icon.onload = () => { this.calculateIconColor(); };
+    this.icon.onload = () => {
+      // if we have the fancy image, show it under the favicon. otherwise, do the bkgd color thing
+      if (this.model.fancyImageData) {
+        this.iconContainer.style.cssText =
+          'background-size: cover; background-image: url("' + this.model.fancyImageData + '");';
+      } else {
+        this.calculateIconColor();
+      }
+    };
     this.icon.onerror = () => { this.hideErroredFavicon(); };
     this.icon.src = this.model.displayImage();
     this.iconContainer.appendChild(this.icon);
