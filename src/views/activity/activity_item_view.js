@@ -1,32 +1,15 @@
-import BaseView from '../base_view';
-import ActivityItemView from '../../templates/activity/item.html';
+import ActivityItemTemplate from '../../templates/activity/item.html';
 import Favicon from '../../lib/image_colors';
-import webChannel from '../../lib/web_channel';
+import RowItemView from '../row_item_view';
 
-export default BaseView.extend({
-  template: ActivityItemView,
+export default RowItemView.extend({
+  template: ActivityItemTemplate,
 
-  events: {
-    'mousedown': 'openUrl',
-    'select': 'sendSelectionDetails'
-  },
+  events: RowItemView.prototype.events,
 
   afterRender () {
     this.iconContainer = this.query('.icon.favicon');
     this.injectFavicon();
-  },
-
-  openUrl (event) {
-    // we have to use mousedown, not click, because of browser bugs.
-    // see https://github.com/mozilla/universal-search-addon/issues/20 for more.
-    if (event.which === 1) {
-      const prefix = this.model.type === 'action' ? 'moz-action:switchtab,' : '';
-      webChannel.sendAutocompleteClick(prefix + this.model.url, 'url');
-    }
-  },
-
-  sendSelectionDetails (event) {
-    webChannel.sendUrlSelected(this.model.url, 'url');
   },
 
   injectFavicon () {
@@ -44,7 +27,7 @@ export default BaseView.extend({
       }
     };
     this.icon.onerror = () => { this.hideErroredFavicon(); };
-    this.icon.src = this.model.displayImage();
+    this.icon.src = this.model.displayImage;
     this.iconContainer.appendChild(this.icon);
   },
 

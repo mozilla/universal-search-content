@@ -1,24 +1,9 @@
-import BaseView from '../base_view';
-import RecommendedItemView from '../../templates/recommended/item.html';
-import webChannel from '../../lib/web_channel';
+import RecommendedItemTemplate from '../../templates/recommended/item.html';
+import RowItemView from '../row_item_view';
 
-export default BaseView.extend({
-  template: RecommendedItemView,
+export default RowItemView.extend({
+  template: RecommendedItemTemplate,
 
-  events: {
-    'mousedown': 'openUrl',
-    'select': 'sendSelectionDetails'
-  },
+  events: RowItemView.prototype.events
 
-  openUrl (event) {
-    // we have to use mousedown, not click, because of browser bugs.
-    // see https://github.com/mozilla/universal-search-addon/issues/20 for more.
-    if (event.which === 1) {
-      webChannel.sendAutocompleteClick(this.model.url, 'url');
-    }
-  },
-
-  sendSelectionDetails (event) {
-    webChannel.sendUrlSelected(this.model.url, 'url');
-  }
 });
