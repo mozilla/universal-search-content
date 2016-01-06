@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const normalize = require('node-normalize-scss');
 
 module.exports = {
   entry: './src/main.js',
@@ -20,7 +21,7 @@ module.exports = {
         loader: 'babel'
       },
       { test: /\.html$/, loader: 'mustache' },
-      { test: /\.scss$/, loader: 'style!css!sass?sourceMap' }
+      { test: /\.scss$/, loader: 'style!css!sass?sourceMap&includePaths[]=' + normalize.includePaths }
     ]
   },
   devServer: {
