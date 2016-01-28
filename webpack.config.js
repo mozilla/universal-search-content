@@ -27,6 +27,7 @@ module.exports = {
       { test: /\.scss$/, loader: 'style!css!sass?sourceMap&includePaths[]=' + normalize.includePaths }
     ]
   },
+  devtool: 'source-map',
   devServer: {
     contentBase: './dist',
     https: true
