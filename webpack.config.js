@@ -18,7 +18,10 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /(node_modules|bower_components)/,
-        loader: 'babel'
+        loader: 'babel-loader',
+        query: {
+          presets: ['es2015']
+        }
       },
       { test: /\.html$/, loader: 'mustache' },
       { test: /\.scss$/, loader: 'style!css!sass?sourceMap&includePaths[]=' + normalize.includePaths }
