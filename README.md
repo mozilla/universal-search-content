@@ -1,4 +1,6 @@
-**Note**: the `<iframe>` approach is presently on hold. Follow the latest [Universal Search](https://wiki.mozilla.org/Firefox/Universal_Search) developments at the [mozilla/universal-search](https://github.com/mozilla/universal-search) repository and on its [Waffle.io board](https://waffle.io/mozilla/universal-search).
+# This repo is deprecated
+
+The `<iframe>` approach is presently on hold. Follow the latest [Universal Search](https://wiki.mozilla.org/Firefox/Universal_Search) developments at the [mozilla/universal-search](https://github.com/mozilla/universal-search) repository and on its [Waffle.io board](https://waffle.io/mozilla/universal-search). 
 
 # universal-search-content
 
